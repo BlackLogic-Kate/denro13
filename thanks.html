@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
   // 2. Серверная отправка через Netlify Function
-  fetch('/api/purchase', {
+  fetch('/.netlify/functions/purchase', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
