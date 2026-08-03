@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<!-- End Meta Pixel Code -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Рациональный инвестор</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:#f2eeea;background:#0c0c0c;overflow-x:hidden}
+body::before,body::after{content:'';position:fixed;top:0;bottom:0;background:#0c0c0c;z-index:1;pointer-events:none}
+body::before{left:0;right:calc(50% + 240px)}
+body::after{left:calc(50% + 240px);right:0}
+.page{max-width:480px;margin:0 auto;background:#0c0c0c;position:relative;z-index:2}
+
+/* HERO */
+.hero{padding:28px 20px 32px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(212,43,43,0.18) 0%,transparent 65%);pointer-events:none}
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.brand{font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;letter-spacing:2px;color:rgba(242,238,234,0.35)}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(242,238,234,0.7)}
+.bdot{width:5px;height:5px;border-radius:50%;background:#d42b2b;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,43,43,0.5)}50%{box-shadow:0 0 0 4px rgba(212,43,43,0)}}
+.hero-label{font-size:0.6rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#d42b2b;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero-label::before{content:'';width:16px;height:1.5px;background:#d42b2b}
+.hero-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.35rem,8vw,1.85rem);font-weight:900;line-height:1.05;letter-spacing:-0.3px;margin-bottom:12px;word-break:keep-all}
+.hero-h .red{color:#d42b2b}
+.hero-sub{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.65;margin-bottom:20px}
+.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,0.07);margin-bottom:20px}
+.hstat{flex:1;padding:12px 8px;text-align:center;border-right:1px solid rgba(255,255,255,0.07)}
+.hstat:last-child{border-right:none}
+.hstat-val{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:800;color:#d42b2b}
+.hstat-lbl{font-size:0.55rem;font-weight:500;color:rgba(242,238,234,0.38);margin-top:3px;line-height:1.3}
+
+/* STEPS BLOCK */
+.steps-block{background:#111;border:1px solid rgba(255,255,255,0.07);padding:18px 16px 14px;margin-bottom:20px;position:relative;overflow:hidden}
+.steps-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,rgba(212,43,43,0.2),#d42b2b,rgba(212,43,43,0.2))}
+.steps-title{font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(242,238,234,0.28);margin-bottom:14px}
+.steps-row{display:flex;align-items:stretch;gap:0}
+.step-card{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px;position:relative}
+.step-card+.step-card::before{content:'→';position:absolute;left:-4px;top:14px;color:rgba(212,43,43,0.35);font-size:0.7rem;transform:translateX(-50%)}
+.step-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.4rem;font-weight:800;color:rgba(212,43,43,0.18);line-height:1;margin-bottom:6px}
+.step-card.on .step-n{color:#d42b2b}
+.step-icon{width:38px;height:38px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.step-card.on .step-icon{border-color:rgba(212,43,43,0.4);background:rgba(212,43,43,0.08)}
+.step-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(242,238,234,0.28);margin-bottom:4px}
+.step-card.on .step-lbl{color:#d42b2b}
+.step-desc{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;font-weight:500;color:rgba(242,238,234,0.45);line-height:1.4}
+.step-card.on .step-desc{color:rgba(242,238,234,0.72)}
+.steps-bar{display:flex;gap:3px;margin-top:14px}
+.sb{flex:1;height:2px;background:rgba(255,255,255,0.07);border-radius:1px}
+.sb.f{background:#d42b2b}
+.steps-note{font-size:0.63rem;font-weight:500;color:rgba(242,238,234,0.22);text-align:center;margin-top:8px}
+.steps-note span{color:#d42b2b;font-weight:700}
+
+.scroll-hint{display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.62rem;color:rgba(242,238,234,0.22);letter-spacing:1px;text-transform:uppercase}
+.bounce{animation:bounce 1.6s ease-in-out infinite;color:#d42b2b}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+.div{height:1px;background:rgba(255,255,255,0.06)}
+
+/* SECTIONS */
+.sec{padding:32px 20px}
+.sec-alt{background:#111}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#d42b2b;background:rgba(212,43,43,0.08);border:1px solid rgba(212,43,43,0.18);padding:4px 10px;margin-bottom:14px}
+.sec-h{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;line-height:1.1;letter-spacing:-0.3px;margin-bottom:10px}
+.sec-h .red{color:#d42b2b}
+.sec-sub{font-size:0.87rem;font-weight:500;color:rgba(242,238,234,0.5);line-height:1.65;margin-bottom:20px}
+
+/* RING VISUAL */
+.ring-wrap{position:relative;width:220px;height:220px;margin:0 auto 20px;flex-shrink:0}
+.ring-svg{position:absolute;inset:0;width:100%;height:100%;animation:ringspin 20s linear infinite}
+@keyframes ringspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:rgba(212,43,43,0.1);border:2px solid rgba(212,43,43,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring-center-label{font-family:'Unbounded',sans-serif;font-size:0.5rem;font-weight:800;color:#d42b2b;letter-spacing:1px;text-transform:uppercase;line-height:1.3}
+.ring-items{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.ring-item{display:flex;align-items:center;gap:8px;font-size:0.78rem;font-weight:500;color:rgba(242,238,234,0.7)}
+.ring-item svg{flex-shrink:0}
+
+/* EXPERTS */
+.experts{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.expert{display:flex;align-items:flex-start;gap:12px;background:#141414;padding:14px 14px;border-left:2px solid rgba(212,43,43,0.25)}
+.exp-ico{width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.62rem;font-weight:800;color:rgba(242,238,234,0.35);font-family:'Unbounded',sans-serif}
+.exp-name{font-size:0.82rem;font-weight:700;margin-bottom:2px}
+.exp-role{font-size:0.7rem;font-weight:500;color:#d42b2b;margin-bottom:3px}
+.exp-desc{font-size:0.75rem;font-weight:400;color:rgba(242,238,234,0.48);line-height:1.5}
+.guest-label{font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(242,238,234,0.25);margin:12px 0 8px;padding-left:2px}
+
+/* MODULES */
+.modules{display:flex;flex-direction:column;gap:2px}
+.mod{background:#141414;border-left:2px solid rgba(212,43,43,0.2);transition:border-color 0.2s}
+.mod.open{border-color:#d42b2b}
+.mod-head{padding:16px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:10px;-webkit-tap-highlight-color:transparent}
+.mod-meta{flex:1}
+.mod-num{font-size:0.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#d42b2b;margin-bottom:4px}
+.mod-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:800;line-height:1.3;color:#f2eeea}
+.mod-why{font-size:0.75rem;font-weight:500;color:rgba(242,238,234,0.38);margin-top:3px;line-height:1.4}
+.mod-ico{color:#d42b2b;font-size:1.1rem;font-weight:300;transition:transform 0.25s;flex-shrink:0;margin-top:2px}
+.mod.open .mod-ico{transform:rotate(45deg)}
+.mod-body{max-height:0;overflow:hidden;transition:max-height 0.38s ease,padding 0.3s ease;font-size:0.82rem;color:rgba(242,238,234,0.55);line-height:1.65;padding:0 16px}
+.mod.open .mod-body{max-height:700px;padding:0 16px 16px}
+.mod-body ul{padding-left:16px;display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.mod-body li{padding-left:2px}
+.mod-tools{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.mod-tool{font-size:0.63rem;font-weight:700;color:rgba(212,43,43,0.85);background:rgba(212,43,43,0.08);border:1px solid rgba(212,43,43,0.18);padding:3px 8px}
+.mod-result{margin-top:10px;padding:10px 12px;background:rgba(212,43,43,0.07);border-left:2px solid #d42b2b;font-size:0.8rem;font-weight:600;color:rgba(242,238,234,0.7)}
+.mod-result strong{color:#d42b2b}
+
+/* CLUB */
+.club-block{background:#141414;border:1.5px solid rgba(212,43,43,0.28);padding:20px 18px;position:relative;overflow:hidden;margin-top:16px}
+.club-block::before{content:'';position:absolute;right:-10px;top:-20px;font-size:120px;font-family:'Unbounded',sans-serif;font-weight:900;color:rgba(212,43,43,0.04);pointer-events:none;line-height:1}
+.club-badge{display:inline-flex;align-items:center;gap:6px;background:#d42b2b;color:#fff;font-size:0.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;margin-bottom:12px}
+.club-h{font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:900;margin-bottom:8px}
+.club-desc{font-size:0.83rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.65;margin-bottom:14px}
+.club-points{display:flex;flex-direction:column;gap:6px}
+.club-pt{font-size:0.8rem;font-weight:500;color:rgba(242,238,234,0.68);display:flex;align-items:flex-start;gap:8px}
+.club-pt::before{content:'→';color:#d42b2b;flex-shrink:0}
+
+/* BOOKING */
+.booking-cards{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.bcard{padding:18px 16px;border:1.5px solid rgba(255,255,255,0.08);background:#141414;position:relative}
+.bcard.hot{border-color:#d42b2b;background:rgba(212,43,43,0.05)}
+.bcard-badge{position:absolute;top:-10px;left:16px;background:#d42b2b;font-size:0.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:3px 10px}
+.bcard-title{font-family:'Unbounded',sans-serif;font-size:0.88rem;font-weight:800;margin-bottom:8px}
+.bcard.hot .bcard-title{color:#d42b2b}
+.bcard-desc{font-size:0.83rem;font-weight:500;color:rgba(242,238,234,0.58);line-height:1.6;margin-bottom:12px}
+.bcard-pros{display:flex;flex-direction:column;gap:5px}
+.bcard-pro{font-size:0.78rem;font-weight:500;color:rgba(242,238,234,0.55);display:flex;align-items:flex-start;gap:8px}
+.bcard-pro::before{content:'✓';color:#28c864;flex-shrink:0;font-size:0.7rem;margin-top:1px}
+
+/* TARIFF QUIZ */
+.tq-prog{display:flex;gap:4px;margin-bottom:20px}
+.tq-dot{flex:1;height:2px;background:rgba(255,255,255,0.07);border-radius:1px;transition:background 0.3s}
+.tq-dot.done{background:#d42b2b}
+.tq-dot.cur{background:rgba(212,43,43,0.5)}
+.tq-step{display:none}
+.tq-step.active{display:block}
+.tq-q{font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:800;line-height:1.2;margin-bottom:5px}
+.tq-hint{font-size:0.75rem;color:rgba(242,238,234,0.28);margin-bottom:18px}
+.tq-opts{display:flex;flex-direction:column;gap:8px}
+.tq-opt{background:#141414;border:1.5px solid rgba(255,255,255,0.07);padding:13px 14px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;display:flex;align-items:flex-start;gap:12px}
+.tq-opt:hover{border-color:rgba(212,43,43,0.35);background:#181818}
+.tq-opt.sel{border-color:#d42b2b;background:rgba(212,43,43,0.07)}
+.tq-key{width:22px;height:22px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;color:rgba(242,238,234,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;border-radius:2px}
+.tq-opt.sel .tq-key{background:#d42b2b;border-color:#d42b2b;color:#fff}
+.tq-text{font-size:0.85rem;font-weight:500;color:rgba(242,238,234,0.7);line-height:1.45}
+.tq-opt.sel .tq-text{color:#f2eeea;font-weight:600}
+.tq-next{margin-top:14px;width:100%;height:48px;background:linear-gradient(135deg,#e83535,#b81f1f);color:#fff;border:none;cursor:pointer;font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;opacity:0.35;pointer-events:none;transition:opacity 0.2s,transform 0.12s;display:flex;align-items:center;justify-content:center;gap:8px}
+.tq-next.on{opacity:1;pointer-events:auto}
+.tq-next.on:hover{transform:translateY(-1px)}
+
+/* TARIFF RESULT */
+.tresult{display:none;margin-top:16px;animation:fi 0.4s ease}
+.tresult.show{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tr-top{text-align:center;padding:20px;background:#141414;border-top:3px solid #d42b2b;margin-bottom:12px}
+.tr-title{font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:900;color:#d42b2b;margin-bottom:6px}
+.tr-match{font-size:0.82rem;font-weight:500;color:rgba(242,238,234,0.52);line-height:1.5}
+.tariff-grid{display:flex;flex-direction:column;gap:12px}
+.tariff{border:1.5px solid rgba(255,255,255,0.08);background:#141414;overflow:hidden}
+.tariff.rec{border-color:#d42b2b}
+.tariff-label{background:#d42b2b;font-family:'Unbounded',sans-serif;font-size:0.5rem;font-weight:800;letter-spacing:1px;color:#fff;padding:5px 16px;text-align:center}
+.tariff-head{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tariff-name{font-family:'Unbounded',sans-serif;font-size:0.82rem;font-weight:900;letter-spacing:0.5px;margin-bottom:3px}
+.tariff.rec .tariff-name{color:#d42b2b}
+.tariff-tagline{font-size:0.7rem;font-weight:500;color:rgba(242,238,234,0.35)}
+.tariff-body{padding:12px 16px}
+.feat-cat-title{font-size:0.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(242,238,234,0.28);margin-bottom:6px;margin-top:8px}
+.feat-cat-title:first-child{margin-top:0}
+.feat-items{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}
+.feat{display:flex;align-items:flex-start;gap:8px;font-size:0.78rem;font-weight:500;line-height:1.4}
+.feat.y{color:rgba(242,238,234,0.78)}
+.feat.n{color:rgba(242,238,234,0.22)}
+.feat.y::before{content:'+';color:#28c864;font-weight:800;flex-shrink:0;font-size:0.72rem;margin-top:1px}
+.feat.n::before{content:'—';color:rgba(242,238,234,0.15);flex-shrink:0}
+.tariff-cta{padding:0 16px 14px;display:flex;flex-direction:column;gap:6px}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;background:linear-gradient(135deg,#e83535,#b81f1f);color:#fff;border:none;cursor:pointer;font-family:'Unbounded',sans-serif;font-size:0.6rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;transition:transform 0.12s;box-shadow:0 4px 14px rgba(212,43,43,0.3)}
+.cta-btn:hover{transform:translateY(-1px)}
+.cta-btn.out{background:transparent;border:1.5px solid rgba(255,255,255,0.1);color:rgba(242,238,234,0.35);box-shadow:none}
+.cta-btn.out:hover{border-color:rgba(255,255,255,0.22);color:rgba(242,238,234,0.6)}
+.retake{width:100%;height:40px;background:transparent;border:1px solid rgba(255,255,255,0.07);color:rgba(242,238,234,0.28);cursor:pointer;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:10px;transition:border-color 0.2s,color 0.2s}
+.retake:hover{border-color:rgba(255,255,255,0.18);color:rgba(242,238,234,0.55)}
+
+/* FEARS */
+.fears-list{display:flex;flex-direction:column;gap:2px}
+.fear-item{background:#141414;padding:14px 16px;border-left:2px solid rgba(212,43,43,0.15);transition:border-color 0.2s}
+.fear-item:hover{border-color:#d42b2b}
+.fear-q{font-size:0.85rem;font-weight:700;color:#f2eeea;margin-bottom:5px}
+.fear-a{font-size:0.8rem;font-weight:500;color:rgba(242,238,234,0.5);line-height:1.6}
+
+/* QUESTIONS */
+.qlist{display:flex;flex-direction:column;gap:6px}
+.qlist-item{font-size:0.82rem;font-weight:500;color:rgba(242,238,234,0.65);padding:10px 14px;background:#141414;border-left:2px solid rgba(212,43,43,0.2);display:flex;align-items:flex-start;gap:8px}
+.qlist-item::before{content:'?';color:#d42b2b;font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;flex-shrink:0;margin-top:2px}
+.mgr-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;width:100%;height:48px;background:transparent;border:1.5px solid #d42b2b;color:#d42b2b;font-family:'Unbounded',sans-serif;font-size:0.62rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;transition:background 0.2s,color 0.2s}
+.mgr-btn:hover{background:#d42b2b;color:#fff}
+
+footer{padding:24px 20px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-note{font-size:0.72rem;color:rgba(242,238,234,0.25);line-height:1.6;text-align:center}
+.footer-note a{color:#d42b2b;text-decoration:none}
+
+.fmt-blocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:20px}
+.fb{display:flex;flex-direction:column;align-items:flex-start;padding:14px 12px;gap:5px;background:#161616;border:1px solid rgba(255,255,255,0.06);transition:border-color 0.2s,background 0.2s}
+.fb:hover{background:#1d1d1d;border-color:rgba(212,43,43,0.3)}
+.fb-6{background:rgba(212,43,43,0.07);border-color:rgba(212,43,43,0.25)}
+.fb-n{font-family:'Unbounded',sans-serif;font-size:0.52rem;font-weight:800;color:rgba(212,43,43,0.6);letter-spacing:1px}
+.fb-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.75rem;font-weight:700;color:rgba(242,238,234,0.75);line-height:1.35}
+.fb-6 .fb-t{color:rgba(242,238,234,0.92)}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-top">
+    <div class="brand">denro13</div>
+    <div class="badge"><span class="bdot"></span>Старт — уточни у менеджера</div>
+  </div>
+  <div class="hero-label">Флагманский курс</div>
+  <h1 class="hero-h">РАЦИОНАЛЬНЫЙ <span class="red">ИНВЕСТОР</span></h1>
+  <p class="hero-sub">5 недель — от «не понимаю ничего» до собранного портфеля.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">6</div><div class="hstat-lbl">модулей</div></div>
+    <div class="hstat"><div class="hstat-val">1000+</div><div class="hstat-lbl">выпускников</div></div>
+    <div class="hstat"><div class="hstat-val">4</div><div class="hstat-lbl">эксперта</div></div>
+    <div class="hstat"><div class="hstat-val">∞</div><div class="hstat-lbl">клуб навсегда</div></div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-block">
+    <div class="steps-title">Твой путь за 5 недель</div>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-n">01</div>
+        <div class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(242,238,234,0.28)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="step-lbl">Сейчас</div>
+        <div class="step-desc">Много информации — непонятно с чего начать</div>
+      </div>
+      <div class="step-card on">
+        <div class="step-n">02</div>
+        <div class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d42b2b" stroke-width="1.8" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="step-lbl">5 недель</div>
+        <div class="step-desc">Система, портфель, первые сделки</div>
+      </div>
+      <div class="step-card">
+        <div class="step-n">03</div>
+        <div class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(242,238,234,0.28)" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="step-lbl">После</div>
+        <div class="step-desc">Деньги работают на тебя. Стабильно.</div>
+      </div>
+    </div>
+    <div class="steps-bar">
+      <div class="sb f"></div><div class="sb f"></div><div class="sb f"></div><div class="sb"></div><div class="sb"></div>
+    </div>
+    <div class="steps-note">Старт: <span>уточни у менеджера</span></div>
+  </div>
+
+  <div class="scroll-hint"><span class="bounce">↓</span><span>Листайте вниз</span></div>
+</section>
+
+<div class="div"></div>
+
+<!-- FORMAT -->
+<section class="sec sec-alt">
+  <div class="eyebrow">Формат</div>
+  <h2 class="sec-h">Это не просто курс — <span class="red">это окружение</span></h2>
+
+  <div class="fmt-blocks">
+    <div class="fb fb-1"><span class="fb-n">01</span><span class="fb-t">Уроки в записи</span></div>
+    <div class="fb fb-2"><span class="fb-n">02</span><span class="fb-t">Созвоны с Денисом</span></div>
+    <div class="fb fb-3"><span class="fb-n">03</span><span class="fb-t">Общий чат</span></div>
+    <div class="fb fb-4"><span class="fb-n">04</span><span class="fb-t">Таблицы и шаблоны</span></div>
+    <div class="fb fb-5"><span class="fb-n">05</span><span class="fb-t">Разборы портфелей</span></div>
+    <div class="fb fb-6"><span class="fb-n">06</span><span class="fb-t">Инвест-клуб навсегда</span></div>
+  </div>
+
+  <div class="eyebrow"  <div class="eyebrow"  <div class="eyebrow"  <div class="eyebrow"  <div class="eyebrow"  <div class="eyebrow" style="margin-top:4px">Кто учит</div>
+  <h3 style="font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:14px">Денис — <span style="color:#d42b2b">автор и лицо курса</span></h3>
+  <div class="experts">
+    <div class="expert" style="border-left-color:#d42b2b;border-left-width:3px">
+      <div class="exp-ico" style="width:48px;height:48px;background:linear-gradient(135deg,rgba(212,43,43,0.22),rgba(212,43,43,0.06));border-color:#d42b2b;font-size:0.7rem;color:#d42b2b">DR</div>
+      <div>
+        <div class="exp-name">Денис Родионенко</div>
+        <div class="exp-role">Автор курса · ведет все модули · 7+ лет инвестор</div>
+        <div class="exp-desc">Все лекции, созвоны, голосовые разборы. Принцип «не навреди».</div>
+      </div>
+    </div>
+    <div class="guest-label">Приглашенные специалисты:</div>
+    <div class="expert">
+      <div class="exp-ico">AI</div>
+      <div>
+        <div class="exp-name">ИИ-специалист</div>
+        <div class="exp-role">ИИ в инвестициях</div>
+        <div class="exp-desc">Как использовать ИИ-инструменты для анализа рынка и поиска идей.</div>
+      </div>
+    </div>
+    <div class="expert">
+      <div class="exp-ico">RE</div>
+      <div>
+        <div class="exp-name">Эксперт по недвижимости</div>
+        <div class="exp-role">Инвест-недвижимость в ЕС</div>
+        <div class="exp-desc">REIT, покупка vs аренда, инвестиции в недвижимость в реалиях Европы.</div>
+      </div>
+    </div>
+    <div class="expert">
+      <div class="exp-ico">PS</div>
+      <div>
+        <div class="exp-name">Психолог</div>
+        <div class="exp-role">Поведенческие финансы</div>
+        <div class="exp-desc">Почему мы принимаем худшие решения именно с деньгами — и как это изменить.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- PROGRAM -->
+<section class="sec">
+  <div class="eyebrow">Программа</div>
+  <h2 class="sec-h">Что <span class="red">внутри</span></h2>
+  <p class="sec-sub">Нажмите на модуль — уроки, инструменты и результат</p>
+  <div class="modules">
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 0</div><div class="mod-title">Финансовый фундамент</div><div class="mod-why">Инвестировать без базы — как строить дом без фундамента.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Как правильно считать свои финансы</li><li>Долгосрочное планирование</li><li>Управление доходами: работа, бизнес, инвестиции</li><li>Бюджет без боли: приложения и лайфхаки</li><li>Финансы в паре: как договариваться</li><li>Как начать откладывать уже в этом месяце</li><li>Всё о кредитах: потребительские, ипотека, рассрочки</li><li>Финансовая подушка: как собрать и сколько нужно</li><li>Рассчитываем свою пенсию</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Таблица бюджета</div><div class="mod-tool">Шаблон планирования</div><div class="mod-tool">Калькулятор подушки</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Личная финансовая система: доходы, расходы, цели, резерв, первые инвестиционные шаги.</div></div>
+    </div>
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 1</div><div class="mod-title">Мышление инвестора</div><div class="mod-why">Почему большинство теряет деньги — и как попасть в меньшинство.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Зачем инвестировать? Инфляция, цели, свобода</li><li>Что такое активы: акции, облигации, золото, недвижимость</li><li>Сложный процент: магия, проверенная математикой</li><li>Машина — актив или пассив?</li><li>Квартира — актив или пассив?</li><li>Психология инвестора: как не паниковать</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Статьи и разборы</div><div class="mod-tool">Калькуляторы</div><div class="mod-tool">Видео-разборы</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Понимание базовых принципов, логика активов, правильное мышление.</div></div>
+    </div>
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 2</div><div class="mod-title">Инструменты инвестора</div><div class="mod-why">Акции, ETF, облигации, золото, крипта — без хайпа и страха.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Как устроен фондовый рынок</li><li>Акции: что это, как заработать</li><li>Индексы: S&P 500, Nasdaq, Dow Jones</li><li>ETF: как работает, с чего начать</li><li>Облигации и ETF на них</li><li>Золото и ETF на золото</li><li>REIT и ETF на недвижимость</li><li>Отраслевые ETF</li><li>Криптовалюта: разбор, риски, возможности</li><li>ИИ в инвестициях: как использовать для анализа</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Ссылки на биржи</div><div class="mod-tool">Гайды по ETF</div><div class="mod-tool">PDF по выбору ETF</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Разберетесь в инструментах, поймете что подходит именно вам.</div></div>
+    </div>
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 3</div><div class="mod-title">Брокеры и практика</div><div class="mod-why">Теория без практики — деньги на ветер. Открываем счет и делаем первые сделки.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Обзор брокеров: Польша, Европа, Украина, США</li><li>Как открыть счет у брокера</li><li>Как пользоваться платформой: пошаговые гайды</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Скринкасты</div><div class="mod-tool">Пошаговые инструкции</div><div class="mod-tool">Шаблоны документов</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Открытый счет, умение пользоваться платформой, первые реальные сделки.</div></div>
+    </div>
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 4</div><div class="mod-title">Налоги и пенсия</div><div class="mod-why">Самый недооцененный блок. Здесь можно сэкономить тысячи евро в год.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Инструкция по заполнению налоговой декларации</li><li>Оптимизация налогов в Польше и Европе</li><li>Оптимизация налогов: продажа акций в убыток</li><li>Налогообложение в Канаде и США</li><li>Оптимизация налогов с дивидендов</li><li>Авторская таблица для учета налогов</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Авторская таблица налогов</div><div class="mod-tool">Гайды по странам</div><div class="mod-tool">Налоговые калькуляторы</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Понимаете как легально оптимизировать налоги. Часто это +1–2% к доходности.</div></div>
+    </div>
+
+    <div class="mod" onclick="toggleMod(this)">
+      <div class="mod-head"><div class="mod-meta"><div class="mod-num">Модуль 5</div><div class="mod-title">Собираем портфель</div><div class="mod-why">Финальный шаг — портфель под цели, риски и горизонт. Без догадок.</div></div><div class="mod-ico">+</div></div>
+      <div class="mod-body"><ul><li>Как поставить финансовую цель и не забросить её</li><li>Инвестиционные портфельные теории</li><li>Сайты и ресурсы для планирования портфеля</li><li>Приложения для инвестора</li><li>Типичные ошибки новичков</li><li>Когда стоит инвестировать в отдельные акции</li></ul>
+      <div class="mod-tools"><div class="mod-tool">Таблицы расчетов</div><div class="mod-tool">Список сервисов</div><div class="mod-tool">Чек-лист портфеля</div></div>
+      <div class="mod-result"><strong>Результат:</strong> Собранный портфель под ваши цели, риски и горизонт.</div></div>
+    </div>
+
+  </div>
+
+  <div class="club-block">
+    <div class="club-badge">После курса</div>
+    <div class="club-h">Доступ в закрытый инвест-клуб</div>
+    <div class="club-desc">Курс заканчивается — клуб остается навсегда. Это вход в сообщество, а не разовая покупка знаний.</div>
+    <div class="club-points">
+      <div class="club-pt">Закрытые встречи участников клуба</div>
+      <div class="club-pt">Разборы рынка и актуальных ситуаций</div>
+      <div class="club-pt">Общение с такими же рациональными инвесторами</div>
+      <div class="club-pt">Доступ навсегда — это часть курса, не подписка</div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- BOOKING -->
+<section class="sec sec-alt">
+  <div class="eyebrow">Как попасть</div>
+  <h2 class="sec-h">Два способа <span class="red">брони</span></h2>
+  <p class="sec-sub">Место ограничено. Бронь фиксирует место и цену.</p>
+  <div class="booking-cards">
+    <div class="bcard hot">
+      <div class="bcard-badge">Рекомендуем</div>
+      <div class="bcard-title">Бронь 20€ + рассрочка</div>
+      <div class="bcard-desc">Платите 20€ сейчас — место ваше. Остаток делится на части внутри потока. Без банков, без процентов.</div>
+      <div class="bcard-pros">
+        <div class="bcard-pro">Место и цена зафиксированы</div>
+        <div class="bcard-pro">Рассрочка внутренняя — без справок и банков</div>
+        <div class="bcard-pro">Можно начать, даже если сейчас не вся сумма</div>
+        <div class="bcard-pro">20€ — меньше одного ужина в Варшаве</div>
+      </div>
+    </div>
+    <div class="bcard">
+      <div class="bcard-title">Оплата полностью</div>
+      <div class="bcard-desc">Оплачиваете всё сразу — голова свободна.</div>
+      <div class="bcard-pros">
+        <div class="bcard-pro">Место и цена зафиксированы</div>
+        <div class="bcard-pro">Всё оплачено — ничего не отвлекает</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:0.75rem;color:rgba(242,238,234,0.28);margin-top:14px;text-align:center">Актуальные цены и дата старта — <a href="https://t.me/rac_invest_support" style="color:#d42b2b;font-weight:700">уточни у менеджера</a></p>
+</section>
+
+<div class="div"></div>
+
+<!-- TARIFF QUIZ -->
+<section class="sec">
+  <div class="eyebrow">Найди свой тариф</div>
+  <h2 class="sec-h">Какой формат <span class="red">твой?</span></h2>
+  <p class="sec-sub">3 вопроса — и увидишь все тарифы с разбивкой что в каждый входит. Правильных ответов нет — только честные.</p>
+
+  <div id="tq-wrap">
+    <div class="tq-prog" id="tq-prog">
+      <div class="tq-dot cur"></div><div class="tq-dot"></div><div class="tq-dot"></div>
+    </div>
+    <div class="tq-step active" id="tq-0">
+      <div class="tq-q">Как ты обычно учишься?</div>
+      <div class="tq-hint">Честно — никто не смотрит. Серьезно.</div>
+      <div class="tq-opts">
+        <div class="tq-opt" onclick="pickTQ(0,0,this)"><div class="tq-key">A</div><div class="tq-text">Сам, без поддержки — если застряну, разберусь как-нибудь</div></div>
+        <div class="tq-opt" onclick="pickTQ(0,1,this)"><div class="tq-key">B</div><div class="tq-text">Лучше с поддержкой — группа, разборы, вопросы</div></div>
+        <div class="tq-opt" onclick="pickTQ(0,2,this)"><div class="tq-key">C</div><div class="tq-text">Максимум — и поддержка, и личная работа с Денисом</div></div>
+      </div>
+      <button class="tq-next" id="tq-next-0" onclick="nextTQ(1)">Далее →</button>
+    </div>
+    <div class="tq-step" id="tq-1">
+      <div class="tq-q">Нужен ли тебе курс по личным финансам?</div>
+      <div class="tq-hint">Если не знаешь — скорее всего да</div>
+      <div class="tq-opts">
+        <div class="tq-opt" onclick="pickTQ(1,0,this)"><div class="tq-key">A</div><div class="tq-text">Нет, с бюджетом и расходами всё ок</div></div>
+        <div class="tq-opt" onclick="pickTQ(1,1,this)"><div class="tq-key">B</div><div class="tq-text">Да — долги, подушка, планирование хочу разобрать</div></div>
+      </div>
+      <button class="tq-next" id="tq-next-1" onclick="nextTQ(2)">Далее →</button>
+    </div>
+    <div class="tq-step" id="tq-2">
+      <div class="tq-q">Что для тебя важнее на старте?</div>
+      <div class="tq-hint">Большинство выбирают A — и не жалеют</div>
+      <div class="tq-opts">
+        <div class="tq-opt" onclick="pickTQ(2,0,this)"><div class="tq-key">A</div><div class="tq-text">Полная система: инвестиции + личные финансы + поддержка группы</div></div>
+        <div class="tq-opt" onclick="pickTQ(2,1,this)"><div class="tq-key">B</div><div class="tq-text">Ещё и личная работа с Денисом — консультация и разбор портфеля</div></div>
+      </div>
+      <button class="tq-next" id="tq-next-2" onclick="showTariff()">Показать мой тариф →</button>
+    </div>
+  </div>
+
+  <div class="tresult" id="tresult">
+    <div class="tr-top">
+      <div class="tr-title" id="tr-title"></div>
+      <div class="tr-match" id="tr-match"></div>
+    </div>
+    <div class="tariff-grid" id="tariff-cards"></div>
+    <button class="retake" onclick="resetTQ()">Пройти тест заново</button>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- FEARS -->
+<section class="sec sec-alt">
+  <div class="eyebrow">Частые страхи</div>
+  <h2 class="sec-h">Боишься? <span class="red">Разбираем</span></h2>
+  <div class="fears-list">
+    <div class="fear-item"><div class="fear-q">«У меня нет денег на инвестиции»</div><div class="fear-a">На курсе начинают с 50–100€. Главное — система, а не сумма. Капитал строится регулярностью.</div></div>
+    <div class="fear-item"><div class="fear-q">«Я ничего не понимаю в финансах»</div><div class="fear-a">Именно для этого курс и создан. Начинаем с нуля, без сложных терминов.</div></div>
+    <div class="fear-item"><div class="fear-q">«А вдруг я потеряю деньги?»</div><div class="fear-a">Главный принцип Дениса — «не навреди». Курс учит избегать ошибок, а не гнаться за риском.</div></div>
+    <div class="fear-item"><div class="fear-q">«Нет времени на обучение»</div><div class="fear-a">Уроки в записи — смотришь когда удобно. Доступ остается надолго после старта.</div></div>
+    <div class="fear-item"><div class="fear-q">«Я живу в Европе — это работает для меня?»</div><div class="fear-a">Курс создан именно под реалии ЕС: брокеры, налоги, ВНЖ — всё адаптировано.</div></div>
+  </div>
+</section>
+
+
+<div class="div"></div>
+<footer>
+  <div class="footer-note">
+    Дата старта, цены и бронирование:<br>
+    <a href="https://t.me/rac_invest_support">@rac_invest_support</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+var TARIFFS=[
+  {id:'solo',name:'САМОСТОЯТЕЛЬНЫЙ',tagline:'Сам себе менеджер',
+   cats:[
+    {t:'Основной контент',items:[{y:1,t:'Все лекции в записи'},{y:1,t:'Все задания'},{y:0,t:'Общий чат'},{y:0,t:'Групповые разборы'},{y:0,t:'Голосовые разборы от Дениса'}]},
+    {t:'Бонусные модули',items:[{y:0,t:'Налоги (видео-инструкции)'},{y:0,t:'Инвестиции в недвижимость'},{y:0,t:'Инвестиции в золото'},{y:0,t:'Оптимизация налогов с крипты'}]},
+    {t:'Дополнительно',items:[{y:0,t:'Курс «Личные финансы»'},{y:0,t:'Личная работа с Денисом'},{y:1,t:'Доступ к урокам 6 месяцев'},{y:1,t:'Доступ в закрытый инвест-клуб'}]}
+  ]},
+  {id:'com',name:'КОМЬЮНИТИ',tagline:'Не один — а в команде',
+   cats:[
+    {t:'Основной контент',items:[{y:1,t:'Все лекции в записи'},{y:1,t:'Все задания'},{y:1,t:'Общий чат'},{y:1,t:'Групповые разборы'},{y:1,t:'Голосовые разборы от Дениса'}]},
+    {t:'Бонусные модули',items:[{y:1,t:'Налоги (видео-инструкции)'},{y:1,t:'Инвестиции в недвижимость'},{y:1,t:'Инвестиции в золото'},{y:1,t:'Оптимизация налогов с крипты'}]},
+    {t:'Дополнительно',items:[{y:0,t:'Курс «Личные финансы»'},{y:0,t:'Личная работа с Денисом'},{y:1,t:'Доступ к урокам 9 месяцев'},{y:1,t:'Доступ в закрытый инвест-клуб'}]}
+  ]},
+  {id:'clf',name:'КОМЬЮНИТИ + ЛИЧНЫЕ ФИНАНСЫ',tagline:'База + инвестиции = полная система',
+   cats:[
+    {t:'Основной контент',items:[{y:1,t:'Все лекции в записи'},{y:1,t:'Все задания'},{y:1,t:'Общий чат'},{y:1,t:'Групповые разборы'},{y:1,t:'Голосовые разборы от Дениса'}]},
+    {t:'Бонусные модули',items:[{y:1,t:'Налоги (видео-инструкции)'},{y:1,t:'Инвестиции в недвижимость'},{y:1,t:'Инвестиции в золото'},{y:1,t:'Оптимизация налогов с крипты'}]},
+    {t:'Дополнительно',items:[{y:1,t:'Курс «Личные финансы» (12 уроков + таблицы)'},{y:0,t:'Личная работа с Денисом'},{y:1,t:'Доступ к урокам 9 месяцев'},{y:1,t:'Доступ в закрытый инвест-клуб'}]}
+  ]},
+  {id:'premium',name:'PREMIUM',tagline:'Максимум — с личным участием Дениса',
+   cats:[
+    {t:'Основной контент',items:[{y:1,t:'Все лекции в записи'},{y:1,t:'Все задания'},{y:1,t:'Общий чат'},{y:1,t:'Групповые разборы'},{y:1,t:'Голосовые разборы от Дениса'}]},
+    {t:'Бонусные модули',items:[{y:1,t:'Налоги (видео-инструкции)'},{y:1,t:'Инвестиции в недвижимость'},{y:1,t:'Инвестиции в золото'},{y:1,t:'Оптимизация налогов с крипты'}]},
+    {t:'Личная работа',items:[{y:1,t:'Курс «Личные финансы» (12 уроков + таблицы)'},{y:1,t:'Личная работа с Денисом'},{y:1,t:'Индивидуальная консультация'},{y:1,t:'Личные рекомендации по портфелю'},{y:1,t:'Доступ к урокам 12 месяцев'},{y:1,t:'Доступ в закрытый инвест-клуб'}]}
+  ]}
+];
+var RES={
+  '000':{id:'clf',title:'КОМЬЮНИТИ + ЛИЧНЫЕ ФИНАНСЫ',match:'Даже самостоятельным нужна полная система. Этот тариф — то что нужно.'},
+  '001':{id:'premium',title:'PREMIUM',match:'Хочешь учиться сам + личная работа с Денисом. Premium — твой формат.'},
+  '010':{id:'clf',title:'КОМЬЮНИТИ + ЛИЧНЫЕ ФИНАНСЫ',match:'Хочешь разобраться с базой и получить поддержку. Именно для этого создан этот тариф.'},
+  '011':{id:'premium',title:'PREMIUM',match:'База, поддержка и личная работа — максимальный формат.'},
+  '100':{id:'clf',title:'КОМЬЮНИТИ + ЛИЧНЫЕ ФИНАНСЫ',match:'Поддержка + полная финансовая система. Самый популярный выбор.'},
+  '101':{id:'premium',title:'PREMIUM',match:'Поддержка + личная работа — всё что нужно для результата.'},
+  '110':{id:'clf',title:'КОМЬЮНИТИ + ЛИЧНЫЕ ФИНАНСЫ',match:'Группа, разборы и база по финансам — идеальный старт.'},
+  '111':{id:'premium',title:'PREMIUM',match:'Максимум по всем фронтам. PREMIUM — твой вариант.'}
+};
+var TQ={ans:[null,null,null]};
+function toggleMod(el){var o=el.classList.contains('open');document.querySelectorAll('.mod').forEach(function(m){m.classList.remove('open')});if(!o)el.classList.add('open')}
+function pickTQ(qi,oi,el){TQ.ans[qi]=oi;el.parentElement.querySelectorAll('.tq-opt').forEach(function(o){o.classList.remove('sel')});el.classList.add('sel');document.getElementById('tq-next-'+qi).classList.add('on');var d=document.getElementById('tq-prog').children;for(var i=0;i<3;i++)d[i].className='tq-dot'+(i<qi?' done':(i===qi?' cur':''))}
+function nextTQ(n){document.getElementById('tq-'+(n-1)).classList.remove('active');document.getElementById('tq-'+n).classList.add('active');var d=document.getElementById('tq-prog').children;for(var i=0;i<3;i++)d[i].className='tq-dot'+(i<n?' done':(i===n?' cur':''));document.getElementById('tq-wrap').scrollIntoView({behavior:'smooth',block:'start'})}
+function showTariff(){
+  var key=TQ.ans.map(function(a){return a===null?0:a}).join('');
+  var res=RES[key]||RES['000'];
+  document.getElementById('tr-title').textContent=res.title;
+  document.getElementById('tr-match').textContent=res.match;
+  var cards=document.getElementById('tariff-cards');
+  cards.innerHTML='';
+  var sorted=TARIFFS.slice().sort(function(a,b){return(b.id===res.id?1:0)-(a.id===res.id?1:0)});
+  sorted.forEach(function(t){
+    var r=t.id===res.id;
+    var cHtml=t.cats.map(function(c){
+      return '<div class="feat-cat-title">'+c.t+'</div><div class="feat-items">'+
+        c.items.map(function(f){return '<div class="feat '+(f.y?'y':'n')+'">'+f.t+'</div>'}).join('')+
+      '</div>';
+    }).join('');
+    cards.innerHTML+='<div class="tariff'+(r?' rec':'')+'">'+(r?'<div class="tariff-label">ТВОЙ ВАРИАНТ</div>':'')+
+      '<div class="tariff-head"><div class="tariff-name">'+t.name+'</div><div class="tariff-tagline">'+t.tagline+'</div></div>'+
+      '<div class="tariff-body">'+cHtml+'</div>'+
+      '<div class="tariff-cta"><a href="https://buy.stripe.com/00weVf6Fab7J8eeaMs1Jm26" target="_blank" class="cta-btn'+(r?'':' out')+'">'+(r?'Забронировать →':'Забронировать')+'</a></div>'+
+    '</div>';
+  });
+  document.getElementById('tresult').classList.add('show');
+  setTimeout(function(){document.getElementById('tresult').scrollIntoView({behavior:'smooth',block:'start'})},150);
+}
+function resetTQ(){
+  TQ.ans=[null,null,null];
+  for(var i=0;i<3;i++){document.getElementById('tq-'+i).classList.toggle('active',i===0);document.getElementById('tq-'+i).querySelectorAll('.tq-opt').forEach(function(o){o.classList.remove('sel')});document.getElementById('tq-next-'+i).classList.remove('on')}
+  var d=document.getElementById('tq-prog').children;for(var i=0;i<3;i++)d[i].className='tq-dot'+(i===0?' cur':'');
+  document.getElementById('tresult').classList.remove('show');
+  document.getElementById('tq-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Тест: Готовы ли вы к инвестициям?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:#f2eeea;background:#0c0c0c;overflow-x:hidden}
+body::before,body::after{content:'';position:fixed;top:0;bottom:0;background:#0c0c0c;z-index:1;pointer-events:none}
+body::before{left:0;right:calc(50% + 240px)}
+body::after{left:calc(50% + 240px);right:0}
+.page{max-width:480px;margin:0 auto;background:#0c0c0c;position:relative;z-index:2}
+
+
+/* ── DYNAMIC STYLES ── */
+.hero-glow-top{animation:glowPulse 3s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:0.8;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+
+/* Question blocks animate in as you scroll */
+
+.q-block{position:relative;overflow:hidden}
+
+
+.q-reaction{
+  font-size:0.8rem;font-weight:600;
+  color:#d42b2b;
+  margin-top:12px;
+  min-height:22px;
+  transition:opacity 0.35s ease, transform 0.35s ease;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  opacity:0;
+  transform:translateY(4px);
+  display:flex;align-items:center;gap:6px;
+}
+.q-reaction.show{opacity:1;transform:none}
+.q-reaction::before{content:'→';font-size:0.7rem}
+
+.q-funny{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.62rem;font-weight:500;
+  color:rgba(242,238,234,0.25);
+  margin-top:2px;
+  margin-bottom:14px;
+}
+
+.q-watermark{
+  position:absolute;
+  top:-10px;right:-5px;
+  font-family:'Unbounded',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(212,43,43,0.07);
+  line-height:1;user-select:none;pointer-events:none;
+  z-index:0;letter-spacing:-4px;
+}
+.q-num-row,.q-text,.opts{position:relative;z-index:1}
+
+.q-block{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.q-block.vis{opacity:1;transform:none}
+
+/* Answered state — subtle green left border */
+.q-block.answered{background:#0e0e0e;border-left:3px solid rgba(40,200,100,0.25)}
+
+
+/* progress fill pulse when score increases */
+.sp-fill{box-shadow:0 0 8px rgba(212,43,43,0.4)}
+
+/* q-num counter style */
+.q-num{background:rgba(212,43,43,0.1);border:1px solid rgba(212,43,43,0.2);padding:2px 8px;border-radius:2px}
+
+/* answered checkmark */
+.q-block.answered .q-num-row::after{content:'✓';color:#28c864;font-size:0.75rem;font-weight:800;margin-left:auto}
+
+/* result button floating */
+
+.result-fab-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;height:54px;
+  background:linear-gradient(135deg,#e83535 0%,#b81f1f 100%);
+  color:#fff;border:none;cursor:pointer;
+  font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;
+  letter-spacing:0.8px;text-transform:uppercase;
+  box-shadow:0 4px 24px rgba(212,43,43,0.5),0 0 0 1px rgba(212,43,43,0.3);
+  transition:transform 0.12s;
+}
+.result-fab-btn:hover{transform:scale(1.01)}
+.result-fab-count{
+  background:rgba(255,255,255,0.2);
+  border-radius:20px;
+  padding:2px 8px;
+  font-size:0.6rem;
+  font-weight:800;
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  background:#0c0c0c;
+  padding-bottom:0;
+}
+.hero-glow-top{position:absolute;top:-80px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(212,43,43,0.2) 0%,transparent 65%);z-index:0;pointer-events:none}
+.hero-glow-bot{display:none}
+.hero-deco{display:none}
+
+.hero-nav{position:relative;z-index:2;padding:20px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;letter-spacing:2px;color:rgba(242,238,234,0.35)}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px);padding:6px 12px;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(242,238,234,0.7)}
+.bdot{width:5px;height:5px;border-radius:50%;background:#d42b2b;flex-shrink:0;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(212,43,43,0.5)}50%{box-shadow:0 0 0 4px rgba(212,43,43,0)}}
+
+.hero-content{position:relative;z-index:2;padding:24px 20px 36px;}
+.hero-eyebrow{font-size:0.6rem;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#d42b2b;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:16px;height:1.5px;background:#d42b2b}
+.hero-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,9vw,2.1rem);font-weight:900;line-height:1.05;letter-spacing:-0.5px;color:#f2eeea;margin-bottom:12px}
+.hero-h .red{color:#d42b2b}
+.hero-sub{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.5);line-height:1.65;margin-bottom:20px}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chip{font-size:0.62rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:rgba(242,238,234,0.42);border:1px solid rgba(255,255,255,0.07);padding:5px 10px;background:rgba(255,255,255,0.02)}
+.scroll-hint{display:flex;align-items:center;gap:8px;font-size:0.65rem;font-weight:600;color:rgba(242,238,234,0.28);letter-spacing:1px;text-transform:uppercase}
+.scroll-arrow{animation:bounce 1.6s ease-in-out infinite;font-size:1rem;color:#d42b2b}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ── STICKY PROGRESS ── */
+.sticky-prog{
+  position:sticky;top:0;z-index:50;
+  background:#0f0f0f;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:12px 20px 10px;
+}
+.sp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sp-brand{font-family:'Unbounded',sans-serif;font-size:0.5rem;font-weight:800;letter-spacing:2px;color:rgba(242,238,234,0.25)}
+.sp-right{display:flex;align-items:center;gap:10px}
+.sp-count{font-family:'Unbounded',sans-serif;font-size:0.68rem;font-weight:800;color:#f2eeea}
+.sp-count span{color:rgba(242,238,234,0.3)}
+.sp-pts{font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;color:#d42b2b}
+.sp-bar{height:2px;background:rgba(255,255,255,0.07);overflow:hidden}
+.sp-fill{height:100%;background:#d42b2b;transition:width 0.4s ease;width:0%}
+
+/* ── QUESTIONS ── */
+.q-block{
+  padding:24px 20px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  background:#0c0c0c;
+  transition:background 0.3s;
+}
+.q-block.answered{background:#0e0e0e}
+
+
+.q-num-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.q-num{font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;color:#d42b2b}
+.q-cat{font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(242,238,234,0.3)}
+.q-text{font-family:'Unbounded',sans-serif;font-size:1.15rem;font-weight:800;line-height:1.2;letter-spacing:-0.2px;color:#f2eeea;margin-bottom:18px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:12px;background:#141414;border:1.5px solid rgba(255,255,255,0.06);padding:12px 14px;cursor:pointer;transition:border-color 0.15s,background 0.15s,transform 0.08s;-webkit-tap-highlight-color:transparent}
+.opt:hover{border-color:rgba(212,43,43,0.3);background:#181818}
+.opt:active{transform:scale(0.99)}
+.opt.sel{border-color:#d42b2b;background:rgba(212,43,43,0.07);border-left-width:3px}
+.opt-key{width:22px;height:22px;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;color:rgba(242,238,234,0.3);display:flex;align-items:center;justify-content:center;transition:all 0.15s;border-radius:2px;margin-top:1px}
+.opt.sel .opt-key{background:#d42b2b;border-color:#d42b2b;color:#fff}
+.opt-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;font-weight:400;color:rgba(242,238,234,0.68);line-height:1.45}
+.opt.sel .opt-label{color:#f2eeea;font-weight:600}
+
+/* ── RESULT ── */
+.result-section{display:none;border-top:2px solid #d42b2b}
+.result-section.show{display:block}
+
+.res-hero{padding:28px 20px 24px;background:#0f0f0f}
+.res-level{font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(242,238,234,0.3);margin-bottom:12px}
+.res-score-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+.res-score-big{font-family:'Unbounded',sans-serif;font-size:5rem;font-weight:900;color:#d42b2b;line-height:1}
+.res-meta{padding-bottom:8px;display:flex;flex-direction:column;gap:6px}
+.res-of{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(242,238,234,0.25)}
+.res-bar-outer{width:80px;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.res-bar-inner{height:100%;background:linear-gradient(to right,#d42b2b,#ff6b6b);width:0;transition:width 0.9s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s}
+.res-title{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;line-height:1.1;letter-spacing:-0.3px;color:#f2eeea}
+.res-title .red{color:#d42b2b}
+
+.res-body{padding:20px 20px 0;display:flex;flex-direction:column;gap:14px}
+.res-desc{font-size:0.87rem;font-weight:500;color:rgba(242,238,234,0.52);line-height:1.7}
+.steps-label{font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(242,238,234,0.28);margin-bottom:8px}
+.step{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;background:#141414;border-left:2px solid rgba(212,43,43,0.3)}
+.step+.step{margin-top:2px}
+.step-n{font-family:'Unbounded',sans-serif;font-size:0.62rem;font-weight:800;color:#d42b2b;flex-shrink:0;margin-top:2px}
+.step-t{font-size:0.82rem;font-weight:500;color:rgba(242,238,234,0.62);line-height:1.5}
+.cta-box{background:#141414;border:1px solid rgba(212,43,43,0.18);border-top:2px solid #d42b2b;padding:20px 18px}
+.cta-pre{font-size:0.57rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#d42b2b;margin-bottom:7px}
+.cta-name{font-family:'Unbounded',sans-serif;font-size:0.95rem;font-weight:800;color:#f2eeea;line-height:1.2;margin-bottom:8px}
+.cta-text{font-size:0.82rem;font-weight:500;color:rgba(242,238,234,0.46);line-height:1.65;margin-bottom:14px}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;background:linear-gradient(135deg,#e83535 0%,#b81f1f 100%);color:#fff;border:none;cursor:pointer;font-family:'Unbounded',sans-serif;font-size:0.65rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 16px rgba(212,43,43,0.32);transition:transform 0.12s}
+.cta-btn:hover{transform:translateY(-1px)}
+.retake-btn{width:100%;height:44px;background:transparent;border:1px solid rgba(255,255,255,0.07);color:rgba(242,238,234,0.3);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;transition:border-color 0.2s,color 0.2s;margin-top:8px}
+.retake-btn:hover{border-color:rgba(255,255,255,0.18);color:rgba(242,238,234,0.55)}
+.res-footer{height:48px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow-top"></div>
+  <div class="hero-glow-bot"></div>
+  <div class="hero-deco">?</div>
+  <div class="hero-nav">
+    <div class="brand">denro13</div>
+    <div class="badge"><span class="bdot"></span>3 минуты</div>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-h">ГОТОВЫ ЛИ ВЫ<br>К <span class="red">ИНВЕСТИ&shy;ЦИЯМ?</span></h1>
+    <p class="hero-sub">10 честных вопросов. Без правильных и неправильных ответов — только ваша реальность и немного инвестиционной терапии.</p>
+    <div class="hero-chips">
+      <div class="chip">10 вопросов</div>
+      <div class="chip">На каком уровне вы?</div>
+    </div>
+    <div class="scroll-hint">
+      <span class="scroll-arrow">↓</span>
+      <span>Листайте и отвечайте</span>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY PROGRESS -->
+<div class="sticky-prog">
+  <div class="sp-top">
+    <div class="sp-brand">denro13 · тест</div>
+    <div class="sp-right">
+      <div class="sp-count" id="sp-count">0 <span>/ 10</span></div>
+      <div class="sp-pts" id="sp-pts">0 б.</div>
+    </div>
+  </div>
+  <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+</div>
+
+<!-- ALL 10 QUESTIONS -->
+<div id="questions"></div>
+
+<!-- RESULT -->
+<div class="result-section" id="result-sec">
+  <div class="res-hero" id="r-hero"></div>
+  <div class="res-body" id="r-body"></div>
+  <div class="res-footer"></div>
+</div>
+
+<!-- BOTTOM RESULT BUTTON -->
+<div id="bottom-btn-wrap" style="padding:20px 20px 40px;display:none">
+  <p style="font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:rgba(242,238,234,0.45);text-align:center;margin-bottom:14px;line-height:1.5">Вы ответили на все 10 вопросов.<br>Узнайте свой уровень и получите персональный план.</p>
+  <button class="result-fab-btn" id="bottom-btn" onclick="goToResult()" style="width:100%">
+    <span>Узнать мой результат →</span>
+  </button>
+</div>
+
+</div>
+
+<script>
+
+var REACTIONS=[
+  // Q1 финансовая база
+  ['Стартуем с нуля — честно 👊','Лучше, чем ничего!','Хорошая база','Идеально. Мечта инвестора.'],
+  // Q2 долги
+  ['Понятно, сначала разгрести','Окей, держим ситуацию','Умеренно — это нормально','Чисто! Редкость.'],
+  // Q3 опыт
+  ['Добро пожаловать 👋','Теоретик — уже половина пути','Опыт есть, значит, смелость тоже','Ветеран рынка 🫡'],
+  // Q4 цели
+  ['Честно — но так не работает','Разумно','Долгосрочное мышление 🔥','Это философия, а не план — но окей'],
+  // Q5 психология
+  ['Большинство так реагирует — и теряют','Держать — это уже победа','Вот это нервы 💪','Про-уровень. Сложно, но реально.'],
+  // Q6 дисциплина
+  ['Окей, будем строить систему','Поработаем над этим','Это и есть ключ к капиталу','Рост + дисциплина = результат'],
+  // Q7 знания
+  ['Не страшно — сейчас разберёмся','Значит, есть что учить','Разбираешься — хороший старт','Можешь объяснить — значит, понял 🧠'],
+  // Q8 горизонт
+  ['Коротко. Рынок не успеет помочь.','Маловато, но лучше чем несколько месяцев 😁','Уже интереснее','Вот теперь про инвестиции 🚀'],
+  // Q9 подход
+  ['Опасный путь, но честный','Аналитики тоже ошибаются 😅','Это и есть рациональный инвестор','Ищешь — значит думаешь'],
+  // Q10 готовность
+  ['Ну... удачи 😅','Пара вечеров — уже что-то','Серьёзный подход','Инвестиции любят терпеливых 🏆'],
+];
+
+var FUNNY=[
+  '(и да, это влияет)',
+  '(долги — они как кот: мешают, но все равно любишь)',
+  '(«читал» тоже считается)',
+  '(только честно)',
+  '(вот тут многие врут себе)',
+  '(речь не о диете)',
+  '(подсказок нет)',
+  '(мысленный горизонт, не буквально)',
+  '(интуиция — тоже ответ)',
+  '(никто не осудит за «пару вечеров»)',
+];
+
+var QS=[
+  {c:'Финансовая база',t:'Есть ли у вас финансовая подушка безопасности?',
+   o:['Нет, живу от зарплаты до зарплаты','Откладываю, но меньше 1 месяца расходов','Есть запас на 1–3 месяца','Есть запас на 6 месяцев и больше'],s:[0,1,2,3]},
+  {c:'Долговая нагрузка',t:'Есть ли у вас кредиты или долги (кроме ипотеки)?',
+   o:['Да, и они меня сильно напрягают','Есть, но обслуживаю спокойно','Только ипотека или ничего серьезного','Долгов нет вообще'],s:[0,1,2,3]},
+  {c:'Опыт',t:'Был ли у вас опыт инвестирования?',
+   o:['Никогда не пробовал(а)','Читал(а), смотрел(а), но не вкладывал(а)','Пробовал(а) — есть небольшой портфель','Инвестирую регулярно больше года'],s:[0,1,2,3]},
+  {c:'Цели',t:'Зачем вам инвестиции?',
+   o:['Хочу быстро разбогатеть','Чтобы деньги не съедала инфляция','Копить на крупную цель за 5–10 лет','Создать капитал и пассивный доход'],s:[0,2,3,3]},
+  {c:'Психология',t:'Портфель просел на 20% за месяц. Ваша реакция?',
+   o:['Паника — продам всё немедленно','Сильно нервничаю, но держу','Спокойно — это часть процесса','Докуплю на просадке'],s:[0,1,2,3]},
+  {c:'Дисциплина',t:'Можете регулярно откладывать фиксированную сумму?',
+   o:['Нет, доходы непредсказуемы','Пытаюсь, но не всегда получается','Да, откладываю каждый месяц','Да, и сумма растет с доходом'],s:[0,1,3,3]},
+  {c:'Знания',t:'Чем акция отличается от облигации?',
+   o:['Вообще не понимаю разницы','Слышал(а), но объяснить не смогу','Понимаю в общих чертах','Понимаю и могу объяснить другому'],s:[0,1,2,3]},
+  {c:'Горизонт',t:'На какой срок готовы вложить деньги?',
+   o:['На несколько месяцев','На 1–2 года','На 3–5 лет','На 10 лет и больше'],s:[0,1,2,3]},
+  {c:'Подход',t:'Что для вас ближе?',
+   o:['Найти горячую идею и быстро заработать','Слушать прогнозы аналитиков','Собрать понятный портфель и редко трогать','Пока ищу свой подход'],s:[0,1,3,1]},
+  {c:'Готовность учиться',t:'Готовы выделять время на обучение?',
+   o:['Хочу всё и сразу, без подготовки','Готов(а) уделить пару вечеров','Готов(а) учиться несколько недель','Готов(а) учиться столько, сколько нужно'],s:[0,1,2,3]}
+];
+
+var RS=[
+  {r:[0,8],lv_score:'0–8 баллов',lv:'Уровень 01',h:'Сначала фундамент,\nа потом инвестиции',
+   d:'Инвестиции — это надстройка над здоровыми финансами. Без подушки и закрытых долгов рынок принесет больше стресса и потерь, чем пользы. Это не «никогда» — это «не сейчас».',
+   st:['Соберите подушку на 3–6 месяцев расходов на вкладе','Закройте дорогие кредиты, если они есть','Заведите учет доходов и расходов хотя бы на 2 месяца','Начните читать про базовые инструменты — без вложений'],
+   cpre:'Что дальше → Личные финансы',cn:'Курс «Личные финансы»',
+   ct:'Система, которая выводит из режима «деньги утекают» к стабильному ежемесячному излишку — подушка, контроль расходов, закрытие долгов, грамотные накопления.',
+   cb:'Хочу узнать детали',cl:'https://t.me/rac_invest_support'},
+  {r:[9,16],lv_score:'9–16 баллов',lv:'Уровень 02',h:'База есть — нужны\nзнания и система',
+   d:'У вас есть база и здравый смысл — половина дела сделана. Главный риск: начать вкладывать по чужим советам, без своей стратегии, и потерять деньги на эмоциях.',
+   st:['Улучшите подушку и закройте долги, если есть','Изучите 3 базовых класса активов: акции, облигации, золото','Пройдите системное обучение — чтобы не учиться на ошибках','Начните с минимальных сумм, пока обкатываете дисциплину'],
+   cpre:'Что дальше → Рациональный инвестор',cn:'Флагманский курс «Рациональный инвестор»',
+   ct:'5-недельный курс закрывает именно ваш разрыв между базой и системой. Только проверенные инструменты, налоговая оптимизация, стратегия под вашу цель.',
+   cb:'Хочу узнать детали',cl:'https://t.me/rac_invest_support'},
+  {r:[17,24],lv_score:'17–24 балла',lv:'Уровень 03',h:'Можно входить\nв рынок осознанно',
+   d:'Вы трезво смотрите на деньги, готовы к долгому горизонту и не ждете чудес. Это та самая база, на которой работает спокойное разумное инвестирование.',
+   st:['Соберите простой диверсифицированный портфель','Зафиксируйте письменно стратегию и правила','Настройте регулярные пополнения — автоматизация важнее интуиции','Раз в полгода проводите ребалансировку','Освойте налоговую оптимизацию — +1–2% годовых'],
+   cpre:'Что дальше → Рациональный инвестор',cn:'Флагманский курс «Рациональный инвестор»',
+   ct:'Большинство учеников приходят с вашим уровнем — и за 5 недель выстраивают полноценный портфель под свои цели с нуля. 1000+ выпускников.',
+   cb:'Хочу узнать детали',cl:'https://t.me/rac_invest_support'},
+  {r:[25,30],lv_score:'25–30 баллов',lv:'Уровень 04',h:'Все опоры на месте —\nновый уровень',
+   d:'У вас есть финансовая база и психология долгосрочного инвестора — редкое сочетание. Задача: превратить интуицию в систему, которая работает десятилетиями.',
+   st:['Уточните долгосрочную цель в цифрах и сроках','Углубите подход к выбору акций — основная зона роста','Проверьте, нет ли скрытых перекосов и избыточного риска'],
+   cpre:'Что дальше → ПРО Акции',cn:'Курс «ПРО Акции»',
+   ct:'Продвинутый разбор акционной части портфеля: как глубже анализировать компании, выстраивать структуру и оставаться в круге компетенции.',
+   cb:'Хочу узнать детали',cl:'https://t.me/rac_invest_support'}
+];
+
+var ans = new Array(10).fill(null);
+var KEYS = ['A','B','C','D'];
+
+// Build all questions on load
+(function(){
+  var wrap = document.getElementById('questions');
+  QS.forEach(function(q, qi){
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    block.id = 'qb'+qi;
+
+    var optsHtml = q.o.map(function(opt, oi){
+      return '<div class="opt" id="opt'+qi+'_'+oi+'" onclick="pick('+qi+','+oi+')">'+
+        '<div class="opt-key">'+KEYS[oi]+'</div>'+
+        '<div class="opt-label">'+opt+'</div>'+
+      '</div>';
+    }).join('');
+
+    block.innerHTML =
+      '<div class="q-watermark">'+String(qi+1).padStart(2,'0')+'</div>'+
+      '<div class="q-num-row">'+
+        '<div class="q-num">'+String(qi+1).padStart(2,'0')+'</div>'+
+        '<div class="q-cat">'+q.c+'</div>'+
+      '</div>'+
+      '<div class="q-text">'+q.t+'</div>'+
+      '<div class="opts">'+optsHtml+'</div>'+
+      '<div class="q-reaction" id="react-'+qi+'"></div>';
+    wrap.appendChild(block);
+  });
+})();
+
+function calcScore(){
+  var s = 0;
+  ans.forEach(function(a,i){ if(a!==null) s += QS[i].s[a]; });
+  return s;
+}
+
+function countAnswered(){
+  return ans.filter(function(a){ return a!==null; }).length;
+}
+
+// SCROLL REVEAL for questions
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('vis');
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.q-block').forEach(function(el){ obs.observe(el); });
+})();
+
+function goToResult(){
+  showResult();
+  setTimeout(function(){
+    var rs = document.getElementById('result-sec');
+    if(rs) rs.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
+
+function scrollToResult(){
+  document.getElementById('bottom-btn-wrap').style.display='none';
+  var rs = document.getElementById('result-sec');
+  if(rs.classList.contains('show')){
+    rs.scrollIntoView({behavior:'smooth',block:'start'});
+  } else {
+    showResult();
+  }
+}
+
+function updateProgress(){
+  var n = countAnswered();
+  var sc = calcScore();
+  document.getElementById('sp-count').innerHTML = n+' <span>/ 10</span>';
+  document.getElementById('sp-pts').textContent = sc+' б.';
+  document.getElementById('sp-fill').style.width = (n/10*100)+'%';
+  // update bottom button
+  var bwrap = document.getElementById('bottom-btn-wrap');
+  var fabCount = document.getElementById('fab-count');
+  var btnLabel = document.getElementById('bottom-btn-label');
+  // display handled below
+  if(fabCount){
+    fabCount.textContent = n+'/10';
+    fabCount.style.display = n < 10 ? 'inline' : 'none';
+  }
+  if(bwrap) bwrap.style.display = n === 10 ? 'block' : 'none';
+
+}
+
+function pick(qi, oi){
+  ans[qi] = oi;
+  // update visual
+  for(var i=0;i<4;i++){
+    var el = document.getElementById('opt'+qi+'_'+i);
+    if(el) el.classList.toggle('sel', i===oi);
+  }
+  document.getElementById('qb'+qi).classList.add('answered');
+  // show reaction
+  var rEl = document.getElementById('react-'+qi);
+  if(rEl && REACTIONS[qi] && REACTIONS[qi][oi]!==undefined){
+    rEl.classList.remove('show');
+    rEl.textContent = '';
+    setTimeout(function(){
+      rEl.textContent = REACTIONS[qi][oi];
+      rEl.classList.add('show');
+    }, 80);
+  }
+  updateProgress();
+  // auto scroll to next question if not last
+  if(qi < 9){
+    setTimeout(function(){
+      var next = document.getElementById('qb'+(qi+1));
+      if(next) next.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 1400);
+  }
+}
+
+function checkComplete(){
+  if(countAnswered() < 10) return;
+  showResult();
+}
+
+function showResult(){
+  var sc = calcScore();
+  var res = RS[0];
+  RS.forEach(function(r){ if(sc>=r.r[0]&&sc<=r.r[1]) res=r; });
+  var pct = Math.round(sc/30*100);
+  var titleHtml = res.h.replace('\n','<br>');
+  var stHtml = res.st.map(function(s,i){
+    return '<div class="step"><div class="step-n">0'+(i+1)+'</div><div class="step-t">'+s+'</div></div>';
+  }).join('');
+
+  document.getElementById('r-hero').innerHTML =
+    '<div class="res-level">'+res.lv+' · тест завершен</div>'+
+    '<div class="res-score-row">'+
+      '<div class="res-score-big">'+sc+'</div>'+
+      '<div class="res-meta">'+
+        '<div class="res-of">из 30 баллов</div>'+
+        '<div class="res-bar-outer"><div class="res-bar-inner" id="rbar"></div></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="res-title">'+titleHtml+'</div>';
+
+  document.getElementById('r-body').innerHTML =
+    '<p class="res-desc">'+res.d+'</p>'+
+    '<div><div class="steps-label">Что делать прямо сейчас:</div>'+stHtml+'</div>'+
+    '<div class="cta-box">'+
+      '<div class="cta-pre">'+res.cpre+'</div>'+
+      '<div class="cta-name">'+res.cn+'</div>'+
+      '<div class="cta-text">'+res.ct+'</div>'+
+      '<a href="https://t.me/rac_invest_support" target="_blank" class="cta-btn">'+'<span>'+res.cb+'</span><span>→</span></a>'+'<div style="background:rgba(212,43,43,0.08);border:1px solid rgba(212,43,43,0.2);padding:12px 14px;margin-top:10px;text-align:center"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:0.78rem;font-weight:700;color:rgba(242,238,234,0.75);margin-bottom:4px">Пришли скрин результата менеджеру</div><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:0.72rem;font-weight:500;color:#d42b2b">и получи скидку на курс</div></div>'+
+    '</div>'+
+    '<button class="retake-btn" onclick="resetQuiz()">Пройти тест заново</button>';
+
+  document.getElementById('bottom-btn-wrap').style.display='none';
+  var rs = document.getElementById('result-sec');
+  rs.classList.add('show');
+  setTimeout(function(){
+    rs.scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(function(){
+      var b=document.getElementById('rbar');
+      if(b)b.style.width=pct+'%';
+    },400);
+  },150);
+}
+
+function resetQuiz(){
+  ans = new Array(10).fill(null);
+  // clear visuals
+  for(var qi=0;qi<10;qi++){
+    document.getElementById('qb'+qi).classList.remove('answered');
+    for(var oi=0;oi<4;oi++){
+      var el=document.getElementById('opt'+qi+'_'+oi);
+      if(el)el.classList.remove('sel');
+    }
+  }
+  document.getElementById('result-sec').classList.remove('show');
+  document.getElementById('bottom-btn-wrap').style.display='none';
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateProgress();
+}
+
+updateProgress();
+</script>
+</body>
+</html>
