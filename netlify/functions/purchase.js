@@ -1,8 +1,17 @@
 /**
  * Netlify Function — CAPI Purchase
  * Вызывается с thanks.html при загрузке страницы
- * POST /api/purchase
+ * POST /.netlify/functions/purchase
+ *
+ * Продукт выбирается по полю product в теле запроса.
+ * Суммы заданы здесь, на сервере — с клиента их подменить нельзя.
+ * Без product (старая thanks.html) = мини-курс 4 EUR, как раньше.
  */
+const PRODUCTS = {
+  mini:    { value: 4,  currency: 'EUR', content_name: 'Mini-kurs' },
+  ipoteka: { value: 10, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
+};
+
 const crypto = require('crypto');
 
 exports.handler = async function (event) {
@@ -28,6 +37,7 @@ exports.handler = async function (event) {
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch (e) {}
 
+  const product  = Object.prototype.hasOwnProperty.call(PRODUCTS, body.product) ? PRODUCTS[body.product] : PRODUCTS.mini;
   const eventId  = body.event_id || crypto.randomUUID();
   const fbp      = body.fbp || null;
   const fbc      = body.fbc || null;
@@ -48,11 +58,7 @@ exports.handler = async function (event) {
       event_source_url: body.url || 'https://denro13.com/thanks.html',
       action_source:    'website',
       user_data:        userData,
-      custom_data: {
-        value:        4,
-        currency:     'EUR',
-        content_name: 'Mini-kurs',
-      },
+      custom_data:      product,
     }],
   };
 
