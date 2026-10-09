@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Оплата прошла — Ипотека или аренда — denro13</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1986731632135797');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1986731632135797&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<script>
+// Purchase — браузер + CAPI с дедупликацией по event_id (продукт: Ипотека или аренда, 10 EUR)
+document.addEventListener('DOMContentLoaded', function () {
+  function getCookie(name) {
+    var m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return m ? m[2] : null;
+  }
+
+  // Защита от повторной отправки при обновлении страницы в той же вкладке
+  try {
+    if (sessionStorage.getItem('_ipo_purchase_sent')) { console.log('Purchase уже отправлен'); return; }
+    sessionStorage.setItem('_ipo_purchase_sent', '1');
+  } catch (e) {}
+
+  // Один event_id летит и в браузер, и на сервер — Meta считает одну конверсию
+  var eventId = 'pur_ipo_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+
+  // 1. Браузерный пиксель
+  fbq('track', 'Purchase',
+    { value: 10, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
+    { eventID: eventId }
+  );
+
+  // 2. Серверная отправка через Netlify Function
+  fetch('/.netlify/functions/purchase', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      product:  'ipoteka',
+      event_id: eventId,
+      url:      location.href,
+      fbp:      getCookie('_fbp'),
+      fbc:      getCookie('_fbc'),
+    }),
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (d) { console.log('CAPI:', d.status); })
+  .catch(function (e) { console.log('CAPI fetch error:', e); });
+});
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:#f2eeea;background:#0c0c0c;overflow-x:hidden}
+body::before,body::after{content:'';position:fixed;top:0;bottom:0;background:#0c0c0c;z-index:1;pointer-events:none}
+body::before{left:0;right:calc(50% + 240px)}
+body::after{left:calc(50% + 240px);right:0}
+.page{max-width:480px;margin:0 auto;background:#0c0c0c;position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
+
+.sec{padding:32px 20px}
+.div{height:1px;background:rgba(255,255,255,0.06)}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#d42b2b;background:rgba(212,43,43,0.08);border:1px solid rgba(212,43,43,0.18);padding:4px 10px;margin-bottom:14px}
+.sec-h{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;line-height:1.1;letter-spacing:-0.3px;margin-bottom:12px}
+.sec-h .red{color:#d42b2b}
+.sec-h .green{color:#28c864}
+.sec-p{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.7;margin-bottom:20px}
+
+/* HERO */
+.hero{padding:52px 20px 36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(40,200,100,0.1) 0%,transparent 65%);pointer-events:none}
+.hero-brand{font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;letter-spacing:2px;color:rgba(242,238,234,0.3);margin-bottom:32px}
+.hero-check{width:56px;height:56px;background:rgba(40,200,100,0.1);border:2px solid rgba(40,200,100,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.hero-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,9vw,2rem);font-weight:900;line-height:1.05;letter-spacing:-0.3px;margin-bottom:12px}
+.hero-sub{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.65;margin-bottom:24px}
+
+/* BUTTONS */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;background:linear-gradient(135deg,#e83535 0%,#b81f1f 100%);color:#fff;border:none;cursor:pointer;font-family:'Unbounded',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 20px rgba(212,43,43,0.4);transition:transform 0.12s;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.08),transparent 50%);pointer-events:none}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn-out{background:transparent;border:1.5px solid rgba(255,255,255,0.1);color:rgba(242,238,234,0.45);box-shadow:none}
+.btn-out:hover{border-color:rgba(255,255,255,0.22);color:#f2eeea;transform:none}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
+.step{display:flex;align-items:flex-start;gap:14px;background:#141414;padding:14px 16px;border-left:2px solid rgba(255,255,255,0.06)}
+.step-n{font-family:'Unbounded',sans-serif;font-size:0.75rem;font-weight:800;color:#d42b2b;flex-shrink:0;min-width:20px;margin-top:2px}
+.step-t{font-size:0.86rem;font-weight:500;color:rgba(242,238,234,0.72);line-height:1.5}
+
+/* NO ACCESS */
+.no-access{background:#141414;border:1px solid rgba(255,255,255,0.07);border-left:2px solid rgba(212,43,43,0.3);padding:18px 16px;margin-bottom:20px}
+.no-access-list{display:flex;flex-direction:column;gap:8px}
+.no-access-item{font-size:0.83rem;font-weight:500;color:rgba(242,238,234,0.6);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.no-access-item::before{content:'·';color:#d42b2b;font-size:1.2rem;flex-shrink:0;line-height:1.1}
+
+footer{margin-top:auto;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-note{font-size:0.7rem;color:rgba(242,238,234,0.2);text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-brand">denro13</div>
+  <div class="hero-check">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#28c864" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <h1 class="hero-h">Оплата прошла <span class="green">успешно</span> 🎉</h1>
+  <p class="hero-sub">Спасибо за покупку! Нажмите кнопку ниже — Telegram-бот откроет доступ к двум лекциям и калькулятору «Аренда vs Ипотека».</p>
+  <a href="https://t.me/rodionenko_pro_bot?start=FMUPMTvK27giUqGJ" target="_blank" class="btn">
+    <span>Получить доступ в боте</span>
+    <span style="font-size:1rem">→</span>
+  </a>
+</section>
+
+<div class="div"></div>
+
+<!-- NEXT STEPS -->
+<section class="sec">
+  <div class="eyebrow">Следующий шаг</div>
+  <h2 class="sec-h">Что делать <span class="red">дальше</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-t">Нажмите кнопку «Получить доступ в боте» выше</div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-t">В Telegram нажмите «Запустить» (Start)</div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-t">Бот пришлет сообщение с лекциями и калькулятором</div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- NO ACCESS -->
+<section class="sec">
+  <div class="eyebrow">Не получили доступ?</div>
+  <h2 class="sec-h" style="font-size:1.25rem">Обычно доступ приходит<br>за несколько секунд</h2>
+  <p class="sec-p">Если через 10 минут материалы не появились:</p>
+  <div class="no-access">
+    <div class="no-access-list">
+      <div class="no-access-item">Проверьте сообщения от бота</div>
+      <div class="no-access-item">Убедитесь, что бот не заблокирован</div>
+      <div class="no-access-item">Напишите в поддержку — поможем разобраться</div>
+    </div>
+  </div>
+  <a href="https://t.me/rac_invest_support" target="_blank" class="btn btn-out">
+    <span>Связаться с поддержкой</span>
+  </a>
+</section>
+
+<div class="div"></div>
+
+<!-- SUPPORT -->
+<section class="sec">
+  <div class="eyebrow">Нужна помощь?</div>
+  <h2 class="sec-h" style="font-size:1.25rem">Мы <span class="red">рядом</span></h2>
+  <p class="sec-p">Если возникли вопросы по оплате или доступу к материалам — напишите нам. Мы поможем разобраться.</p>
+  <a href="https://t.me/rac_invest_support" target="_blank" class="btn">
+    <span>Написать в поддержку</span>
+    <span style="font-size:1rem">→</span>
+  </a>
+</section>
+
+<footer>
+  <div class="footer-note">© 2026 denro13.com</div>
+</footer>
+
+</div>
+</body>
+</html>
