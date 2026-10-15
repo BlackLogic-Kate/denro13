@@ -65,131 +65,82 @@ document.addEventListener('DOMContentLoaded', function () {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
+:root{--bg:#0c0c0c;--bg2:#141414;--card:#1c1c1c;--ink:#f2eeea;--mute:rgba(242,238,234,0.55);--dim:rgba(242,238,234,0.32);--red:#d42b2b;--yel:#ffd23f;--line:rgba(255,255,255,0.07)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;color:#f2eeea;background:#0c0c0c;overflow-x:hidden}
-body::before,body::after{content:'';position:fixed;top:0;bottom:0;background:#0c0c0c;z-index:1;pointer-events:none}
-body::before{left:0;right:calc(50% + 240px)}
-body::after{left:calc(50% + 240px);right:0}
-.page{max-width:480px;margin:0 auto;background:#0c0c0c;position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
-
-.sec{padding:32px 20px}
-.div{height:1px;background:rgba(255,255,255,0.06)}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:0.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#d42b2b;background:rgba(212,43,43,0.08);border:1px solid rgba(212,43,43,0.18);padding:4px 10px;margin-bottom:14px}
-.sec-h{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;line-height:1.1;letter-spacing:-0.3px;margin-bottom:12px}
-.sec-h .red{color:#d42b2b}
-.sec-h .green{color:#28c864}
-.sec-p{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.7;margin-bottom:20px}
-
-/* HERO */
-.hero{padding:52px 20px 36px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(40,200,100,0.1) 0%,transparent 65%);pointer-events:none}
-.hero-brand{font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;letter-spacing:2px;color:rgba(242,238,234,0.3);margin-bottom:32px}
-.hero-check{width:56px;height:56px;background:rgba(40,200,100,0.1);border:2px solid rgba(40,200,100,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.hero-h{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,9vw,2rem);font-weight:900;line-height:1.05;letter-spacing:-0.3px;margin-bottom:12px}
-.hero-sub{font-size:0.88rem;font-weight:500;color:rgba(242,238,234,0.55);line-height:1.65;margin-bottom:24px}
-
-/* BUTTONS */
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;background:linear-gradient(135deg,#e83535 0%,#b81f1f 100%);color:#fff;border:none;cursor:pointer;font-family:'Unbounded',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 20px rgba(212,43,43,0.4);transition:transform 0.12s;position:relative;overflow:hidden}
-.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.08),transparent 50%);pointer-events:none}
-.btn:hover{transform:translateY(-1px)}
+body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);overflow-x:hidden}
+.page{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.yel{color:var(--yel)}.red{color:var(--red)}
+.hero{position:relative;padding:22px 20px 34px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-90px;right:-90px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,210,63,0.13) 0%,transparent 65%);pointer-events:none}
+.brand{font-family:'Unbounded',sans-serif;font-size:0.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(242,238,234,0.5);margin-bottom:34px}
+.check{width:58px;height:58px;border-radius:50%;background:var(--yel);display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 0 8px rgba(255,210,63,0.12)}
+.check svg{width:28px;height:28px;stroke:#111;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+h1{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(1.6rem,8.6vw,2.1rem);line-height:1.05;letter-spacing:-0.3px;margin-bottom:12px}
+.sub{font-size:0.92rem;font-weight:500;line-height:1.6;color:rgba(242,238,234,0.68);margin-bottom:22px}
+.sub b{color:var(--ink);font-weight:700}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;padding:10px 16px;background:linear-gradient(135deg,#e83535 0%,#b81f1f 100%);color:#fff;text-decoration:none;font-family:'Unbounded',sans-serif;font-size:0.7rem;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 20px rgba(212,43,43,0.45);position:relative;overflow:hidden;transition:transform .12s}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.08),transparent 50%)}
 .btn:active{transform:translateY(1px)}
-.btn-out{background:transparent;border:1.5px solid rgba(255,255,255,0.1);color:rgba(242,238,234,0.45);box-shadow:none}
-.btn-out:hover{border-color:rgba(255,255,255,0.22);color:#f2eeea;transform:none}
-
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
-.step{display:flex;align-items:flex-start;gap:14px;background:#141414;padding:14px 16px;border-left:2px solid rgba(255,255,255,0.06)}
-.step-n{font-family:'Unbounded',sans-serif;font-size:0.75rem;font-weight:800;color:#d42b2b;flex-shrink:0;min-width:20px;margin-top:2px}
-.step-t{font-size:0.86rem;font-weight:500;color:rgba(242,238,234,0.72);line-height:1.5}
-
-/* NO ACCESS */
-.no-access{background:#141414;border:1px solid rgba(255,255,255,0.07);border-left:2px solid rgba(212,43,43,0.3);padding:18px 16px;margin-bottom:20px}
-.no-access-list{display:flex;flex-direction:column;gap:8px}
-.no-access-item{font-size:0.83rem;font-weight:500;color:rgba(242,238,234,0.6);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-.no-access-item::before{content:'·';color:#d42b2b;font-size:1.2rem;flex-shrink:0;line-height:1.1}
-
-footer{margin-top:auto;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.06)}
-.footer-note{font-size:0.7rem;color:rgba(242,238,234,0.2);text-align:center}
+.btn-out{background:transparent;border:1.5px solid rgba(255,210,63,0.45);color:var(--yel);box-shadow:none}
+.note{text-align:center;font-size:0.72rem;font-weight:500;color:var(--dim);margin-top:10px}
+.sec{padding:30px 20px 34px}
+.sec-alt{background:var(--bg2)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:'Unbounded',sans-serif;font-size:0.58rem;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.eyebrow::before{content:'';width:26px;height:2px;background:currentColor}
+.eyebrow.y{color:var(--yel)}
+h2{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(1.25rem,6.4vw,1.5rem);line-height:1.12;margin-bottom:20px}
+.tl-i{position:relative;padding:0 0 22px 38px}
+.tl-i:last-child{padding-bottom:0}
+.tl-i::before{content:'';position:absolute;left:8px;top:20px;bottom:-2px;width:2px;background:var(--yel);opacity:.5}
+.tl-i:last-child::before{display:none}
+.tl-dot{position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--yel);box-shadow:0 0 0 5px rgba(255,210,63,0.14)}
+.tl-n{font-family:'Unbounded',sans-serif;font-size:0.6rem;font-weight:800;letter-spacing:1.5px;color:var(--yel);margin-bottom:5px}
+.tl-t{font-size:0.92rem;font-weight:500;line-height:1.5;color:rgba(242,238,234,0.9)}
+.box{background:var(--card);border-left:2px solid var(--red);padding:16px;margin-bottom:18px}
+.box p{font-size:0.86rem;font-weight:500;line-height:1.55;color:var(--mute);margin-bottom:10px}
+.box ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.box li{position:relative;padding-left:16px;font-size:0.86rem;font-weight:500;line-height:1.5;color:rgba(242,238,234,0.82)}
+.box li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;background:var(--yel)}
+footer{margin-top:auto;padding:24px 20px;border-top:1px solid var(--line);text-align:center;font-size:0.7rem;color:var(--dim)}
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-brand">denro13</div>
-  <div class="hero-check">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#28c864" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
-  </div>
-  <h1 class="hero-h">Оплата прошла <span class="green">успешно</span> 🎉</h1>
-  <p class="hero-sub">Спасибо за покупку! Нажмите кнопку ниже — Telegram-бот откроет доступ к двум лекциям и калькулятору «Аренда vs Ипотека».</p>
-  <a href="https://t.me/rodionenko_pro_bot?start=FMUPMTvK27giUqGJ" target="_blank" class="btn">
-    <span>Получить доступ в боте</span>
-    <span style="font-size:1rem">→</span>
-  </a>
+  <div class="brand">denro13</div>
+  <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h1>Оплата прошла <span class="yel">успешно</span></h1>
+  <p class="sub">Спасибо за покупку! Нажмите кнопку ниже — Telegram-бот откроет доступ к <b>двум лекциям и калькулятору «Аренда vs Ипотека»</b>.</p>
+  <a href="https://telegram.me/denro13_ipoteka_bot?start=ZGw6MzQzODQ0" target="_blank" rel="noopener" class="btn"><span>Получить доступ в боте</span><span>→</span></a>
+  <div class="note">Доступ навсегда · лекции в сумме 90 минут</div>
 </section>
 
-<div class="div"></div>
-
-<!-- NEXT STEPS -->
-<section class="sec">
-  <div class="eyebrow">Следующий шаг</div>
-  <h2 class="sec-h">Что делать <span class="red">дальше</span></h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-t">Нажмите кнопку «Получить доступ в боте» выше</div>
-    </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-t">В Telegram нажмите «Запустить» (Start)</div>
-    </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-t">Бот пришлет сообщение с лекциями и калькулятором</div>
-    </div>
+<section class="sec sec-alt">
+  <div class="eyebrow y">следующий шаг</div>
+  <h2>Что делать <span class="yel">дальше</span></h2>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-n">01</div><div class="tl-t">Нажмите кнопку «Получить доступ в боте» выше</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-n">02</div><div class="tl-t">В Telegram нажмите «Запустить» (Start)</div></div>
+    <div class="tl-i"><div class="tl-dot"></div><div class="tl-n">03</div><div class="tl-t">Бот пришлет сообщение с лекциями и калькулятором</div></div>
   </div>
 </section>
 
-<div class="div"></div>
-
-<!-- NO ACCESS -->
 <section class="sec">
-  <div class="eyebrow">Не получили доступ?</div>
-  <h2 class="sec-h" style="font-size:1.25rem">Обычно доступ приходит<br>за несколько секунд</h2>
-  <p class="sec-p">Если через 10 минут материалы не появились:</p>
-  <div class="no-access">
-    <div class="no-access-list">
-      <div class="no-access-item">Проверьте сообщения от бота</div>
-      <div class="no-access-item">Убедитесь, что бот не заблокирован</div>
-      <div class="no-access-item">Напишите в поддержку — поможем разобраться</div>
-    </div>
+  <div class="eyebrow">не получили доступ?</div>
+  <h2>Обычно доступ приходит за несколько секунд</h2>
+  <div class="box">
+    <p>Если через 10 минут материалы не появились:</p>
+    <ul>
+      <li>Проверьте сообщения от бота</li>
+      <li>Убедитесь, что бот не заблокирован</li>
+      <li>Напишите в поддержку — поможем разобраться</li>
+    </ul>
   </div>
-  <a href="https://t.me/rac_invest_support" target="_blank" class="btn btn-out">
-    <span>Связаться с поддержкой</span>
-  </a>
+  <a href="https://t.me/rac_invest_support" target="_blank" rel="noopener" class="btn btn-out"><span>Написать в поддержку</span></a>
 </section>
 
-<div class="div"></div>
-
-<!-- SUPPORT -->
-<section class="sec">
-  <div class="eyebrow">Нужна помощь?</div>
-  <h2 class="sec-h" style="font-size:1.25rem">Мы <span class="red">рядом</span></h2>
-  <p class="sec-p">Если возникли вопросы по оплате или доступу к материалам — напишите нам. Мы поможем разобраться.</p>
-  <a href="https://t.me/rac_invest_support" target="_blank" class="btn">
-    <span>Написать в поддержку</span>
-    <span style="font-size:1rem">→</span>
-  </a>
-</section>
-
-<footer>
-  <div class="footer-note">© 2026 denro13.com</div>
-</footer>
-
+<footer>© 2026 denro13</footer>
 </div>
 </body>
 </html>
