@@ -666,6 +666,8 @@ footer{background:#0d0d0d;border-top:1px solid var(--line);padding:28px 20px}
   try { utm = JSON.parse(sessionStorage.getItem('_utm') || '{}'); } catch(e){}
   var qs = new URLSearchParams(location.search);
   utmKeys.forEach(function(k){ var v = qs.get(k); if(v) utm[k] = v; });
+  // Подстраховка: реклама Meta без UTM, но с fbclid → источник «meta_fbclid» (считается холодной)
+  if(!utm.utm_source && utm.fbclid){ utm.utm_source = 'meta_fbclid'; if(!utm.utm_medium) utm.utm_medium = 'no_utm'; }
   try { if(Object.keys(utm).length) sessionStorage.setItem('_utm', JSON.stringify(utm)); } catch(e){}
 
   function withUtm(link){
