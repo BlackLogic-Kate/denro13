@@ -675,6 +675,14 @@ footer{background:#0d0d0d;border-top:1px solid var(--line);padding:28px 20px}
       if(u.hostname === 't.me') return link;
       // Stripe Payment Links принимают только utm_*-параметры
       Object.keys(utm).forEach(function(k){ if(k.indexOf('utm_') === 0) u.searchParams.set(k, utm[k]); });
+      // client_reference_id: источник попадает в Checkout Session и в таблицу SESSIONS (DEN).
+      // Формат: ipo--<utm_source>--<utm_campaign>--<utm_content>; разрешены только A-Z a-z 0-9 _ -
+      if(/stripe\.com$/.test(u.hostname)){
+        var tr = {а:'a',б:'b',в:'v',г:'g',ґ:'g',д:'d',е:'e',ё:'e',є:'ie',ж:'zh',з:'z',и:'i',і:'i',ї:'i',й:'i',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'c',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'iu',я:'ia'};
+        var clean = function(v){ return String(v || '').toLowerCase().replace(/[а-яёєіїґ]/g, function(c){ return tr[c] || ''; }).replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50) || 'none'; };
+        u.searchParams.set('client_reference_id',
+          ['ipo', clean(utm.utm_source), clean(utm.utm_campaign), clean(utm.utm_content)].join('--').slice(0, 200));
+      }
       return u.toString();
     }catch(e){ return link; }
   }
