@@ -36,6 +36,18 @@ document.addEventListener('DOMContentLoaded', function () {
     sessionStorage.setItem('_ipo_purchase_sent', '1');
   } catch (e) {}
 
+  // 0. Метки покупки → лист «Клики» (Stripe передаёт utm_* только в адрес этой страницы, в API их нет)
+  try {
+    var q = new URLSearchParams(location.search), p = new URLSearchParams();
+    p.set('event', 'purchase_thanks');
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function (k) { p.set(k, q.get(k) || ''); });
+    if (!q.get('utm_source') && (q.get('fbclid') || getCookie('_fbc'))) p.set('utm_source', 'meta_fbclid');
+    p.set('ref', document.referrer || '');
+    p.set('label', q.get('session_id') || q.get('client_reference_id') || '');
+    p.set('page', location.pathname);
+    new Image().src = 'https://script.google.com/macros/s/AKfycbwtBr7lCRk-xcpSSLTeDrD-kNu7sE-2l54c8DsgH89Iy0TOz43dXJ2B1QVOhB80vBUt/exec?' + p.toString();
+  } catch (e) {}
+
   // Один event_id летит и в браузер, и на сервер — Meta считает одну конверсию
   var eventId = 'pur_ipo_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
 
