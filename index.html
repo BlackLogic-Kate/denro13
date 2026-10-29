@@ -9,16 +9,54 @@
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
 n.queue=[];t=b.createElement(e);t.async=!0;
+window.__fbqLoad=function(){if(window.__fbqLoaded)return;window.__fbqLoaded=1;
 t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+s.parentNode.insertBefore(t,s)}}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1986731632135797');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1986731632135797&ev=PageView&noscript=1"
-/></noscript>
 <!-- End Meta Pixel Code -->
+<!-- Cookie consent (RODO): Meta Pixel грузится только после согласия -->
+<script>
+(function(){
+  var KEY='cc_consent_v1', cbs=[];
+  function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)||'null'); if(v && v.t && (Date.now()-v.t) < 365*864e5) return v.s; }catch(e){} return null; }
+  function set(s){ try{ localStorage.setItem(KEY, JSON.stringify({s:s,t:Date.now()})); }catch(e){} }
+  window.__ccGranted=function(){ return get()==='granted'; };
+  window.__ccOnGrant=function(fn){ if(window.__ccGranted()) fn(); else cbs.push(fn); };
+  function grant(){ set('granted'); if(window.__fbqLoad) window.__fbqLoad(); var c=cbs; cbs=[]; c.forEach(function(f){ try{f();}catch(e){} }); hide(); }
+  function deny(){ set('denied'); hide(); }
+  var el;
+  function hide(){ if(el){ el.classList.remove('cc-show'); document.documentElement.classList.remove('cc-open'); } }
+  function show(){
+    if(!el){
+      var st=document.createElement('style');
+      st.textContent='.cc-bar{position:fixed;left:50%;bottom:12px;transform:translate(-50%,140%);width:calc(min(480px,100vw) - 24px);z-index:1000;background:#1a1a1a;color:#f2eeea;border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 40px rgba(0,0,0,.6);padding:14px 14px 12px;font:500 13px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;transition:transform .35s ease;border-radius:6px}'+
+        '.cc-bar.cc-show{transform:translate(-50%,0)}.cc-bar p{margin:0 0 10px;color:rgba(242,238,234,.85)}.cc-bar a{color:#ffd23f}'+
+        '.cc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cc-btns button{height:40px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#f2eeea;font:700 13px "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;border-radius:4px}'+
+        '.cc-btns button.cc-yes{background:#f2eeea;color:#111;border-color:#f2eeea}'+
+        'html.cc-open .floating-cta{opacity:0!important;pointer-events:none!important}';
+      document.head.appendChild(st);
+      el=document.createElement('div'); el.className='cc-bar'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Cookies');
+      el.innerHTML='<p>Мы используем cookie и Meta Pixel, чтобы измерять эффективность рекламы. Подробнее — в <a href="/polityka-prywatnosci">Политике конфиденциальности</a>.</p><div class="cc-btns"><button type="button" class="cc-no">Отклонить</button><button type="button" class="cc-yes">Принять</button></div>';
+      document.body.appendChild(el);
+      el.querySelector('.cc-yes').onclick=grant; el.querySelector('.cc-no').onclick=deny;
+    }
+    document.documentElement.classList.add('cc-open');
+    requestAnimationFrame(function(){ el.classList.add('cc-show'); });
+  }
+  window.__ccOpen=show;
+  if(get()==='granted'){ if(window.__fbqLoad) window.__fbqLoad(); }
+  document.addEventListener('DOMContentLoaded',function(){
+    if(get()===null) setTimeout(show,800);
+    var f=document.querySelector('footer');
+    if(f){ var a=document.createElement('a'); a.href='#'; a.textContent='Настройки cookie'; a.style.cssText='display:inline-block;margin-top:8px;font-size:.68rem;color:inherit;opacity:.7;text-decoration:underline';
+      a.onclick=function(e){ e.preventDefault(); show(); }; var w=f.querySelector('.footer-inner')||f; w.appendChild(a); }
+  });
+})();
+</script>
+
 <script>
 // Meta Pixel Events — landing_v5
 document.addEventListener('DOMContentLoaded', function(){
