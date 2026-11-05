@@ -9,7 +9,7 @@
  */
 const PRODUCTS = {
   mini:    { value: 4,  currency: 'EUR', content_name: 'Mini-kurs' },
-  ipoteka: { value: 10, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
+  ipoteka: { value: 9, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
 };
 
 const crypto = require('crypto');

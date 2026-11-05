@@ -57,7 +57,7 @@ fbq('track', 'PageView');
 
 
 <script>
-// Purchase — браузер + CAPI с дедупликацией по event_id (продукт: Ипотека или аренда, 10 EUR)
+// Purchase — браузер + CAPI с дедупликацией по event_id (продукт: Ипотека или аренда, 9 EUR)
 document.addEventListener('DOMContentLoaded', function () {
   function getCookie(name) {
     var m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 1. Браузерный пиксель
   fbq('track', 'Purchase',
-    { value: 10, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
+    { value: 9, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
     { eventID: eventId }
   );
 
