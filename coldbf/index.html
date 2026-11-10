@@ -243,7 +243,7 @@ fbq('track', 'PageView');
   <form class="ticket" id="ticket" name="blackfriday" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-ticket novalidate>
     <input type="hidden" name="form-name" value="blackfriday">
     <p hidden><label>Не заполняй это поле: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-    <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content"><input type="hidden" name="utm_term"><input type="hidden" name="page">
+    <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content"><input type="hidden" name="utm_term"><input type="hidden" name="page"><input type="hidden" name="segment" value="cold">
     <div class="t-head"><span>BOARDING PASS</span><b>BLACK FRIDAY</b></div>
     <div class="sec">
       <div class="nm">Секретный рейс</div>
@@ -358,7 +358,7 @@ fbq('track', 'PageView');
 var CONFIG = {
   start: '2026-11-20T00:00:00+01:00',                                 // секретный рейс (закрытая продажа)
   analyticsUrl: '/.netlify/functions/track',                         // статистика в Google Таблицу (как на основном сайте)
-  botLink: 'https://t.me/rodionenko_pro_bot?start=ryiA8GebepHRwpoj',  // бот Дениса, воронка предзаписи в Zenedu
+  botLink: 'https://t.me/rodionenko_pro_bot?start=rHkYVkubstZXuO6N',  // воронка Zenedu «BF26 · Cold · лист ожидания» (теги BF26, BF26_cold)
   company: 'Denys Rodionenko Consulting, Варшава, Польша',            // администратор данных
   nip: '5223232709',
   contactEmail: 'info@denro13.info',
@@ -408,7 +408,7 @@ var CONFIG = {
   }
   function px() { try { if (window.fbq) window.fbq.apply(null, arguments); } catch (x) {} }
   function cookie(n) { var m = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return m ? m[2] : ''; }
-  px('track', 'ViewContent', { content_name: 'BF2026 waitlist page' });
+  px('track', 'ViewContent', { content_name: 'BF2026 waitlist page cold' });
   sheets('bf_page_view');
   $$('a[href="#ticket"]').forEach(function (a) { a.addEventListener('click', function () { sheets('bf_click_ticket'); }); });
 
@@ -432,9 +432,9 @@ var CONFIG = {
     var done = function () {
       sheets('bf_lead');
       if (window.__ccGranted && window.__ccGranted()) {
-        px('track', 'Lead', { content_name: 'BF2026 waitlist' }, { eventID: eventId });
+        px('track', 'Lead', { content_name: 'BF2026 waitlist cold' }, { eventID: eventId });
         fetch('/.netlify/functions/lead', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ kind: 'bf_waitlist', event_id: eventId, url: location.href, email: email, phone: phone, name: name, fbp: cookie('_fbp'), fbc: cookie('_fbc') }) }).catch(function () {});
+          body: JSON.stringify({ kind: 'bf_waitlist', segment: 'cold', event_id: eventId, url: location.href, email: email, phone: phone, name: name, fbp: cookie('_fbp'), fbc: cookie('_fbc') }) }).catch(function () {});
       }
       $('[data-out-name]').textContent = name.toUpperCase();
       $('[data-fields]').hidden = true; $('[data-done]').hidden = false;

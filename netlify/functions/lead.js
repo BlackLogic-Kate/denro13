@@ -41,6 +41,7 @@ exports.handler = async function (event) {
   try { body = JSON.parse(event.body || '{}'); } catch (e) {}
 
   const kind = Object.prototype.hasOwnProperty.call(EVENTS, body.kind) ? body.kind : 'bf_waitlist';
+  const segment = ['cold', 'warm'].includes(body.segment) ? body.segment : '';
   const eventId = /^[a-z0-9_]{6,64}$/i.test(body.event_id || '') ? body.event_id : 'lead_' + crypto.randomUUID();
 
   const email = str(body.email, 120).toLowerCase();
@@ -63,10 +64,10 @@ exports.handler = async function (event) {
       event_name: 'Lead',
       event_time: Math.floor(Date.now() / 1000),
       event_id: eventId,
-      event_source_url: /^https:\/\/(www\.)?denro13edu\.com\//.test(url) ? url : 'https://denro13edu.com/blackfriday/',
+      event_source_url: /^https:\/\/(www\.)?denro13edu\.com\//.test(url) ? url : 'https://denro13edu.com/' + (segment ? segment + 'bf/' : ''),
       action_source: 'website',
       user_data: userData,
-      custom_data: EVENTS[kind],
+      custom_data: { content_name: EVENTS[kind].content_name + (segment ? ' ' + segment : '') },
     }],
   };
 

@@ -5,3 +5,13 @@
   for = "/assets/bot/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+
+# Black Friday 2026: старая ссылка /blackfriday ведет на холодную версию
+[[redirects]]
+  from = "/blackfriday"
+  to = "/coldbf/"
+  status = 301
+[[redirects]]
+  from = "/blackfriday/*"
+  to = "/coldbf/"
+  status = 301
