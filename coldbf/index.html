@@ -56,6 +56,7 @@ h1,h2{margin:0}
 .hero-txt{padding-top:20px;text-align:center}
 h1{font:900 30px/1.08 'Unbounded',sans-serif;letter-spacing:-.02em}
 h1 span{color:var(--red)}
+.short span{display:block;text-wrap:balance}
 .short{margin:14px 0 0;font-size:15.5px;font-weight:300;line-height:1.55;letter-spacing:.005em;color:var(--soft)}
 .short b{color:var(--text);font-weight:600;white-space:nowrap}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:0 20px;border:0;border-radius:0;background:var(--red);color:#fff;font:600 17px 'Onest',sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 10px 26px rgba(255,61,71,.28);transition:transform .15s}
@@ -246,7 +247,7 @@ fbq('track', 'PageView');
   <section class="hero">
     <div class="hero-txt">
       <h1>Черная пятница<br><span>на неделю раньше</span></h1>
-      <p class="short">Запомни дату: <b>20 ноября</b>. Для&nbsp;листа&nbsp;ожидания откроется самое выгодное предложение. Для остальных Черная&nbsp;пятница будет <b>27&nbsp;ноября</b>.</p>
+      <p class="short"><span>Пассажиры из&nbsp;листа&nbsp;ожидания получат предложения уже <b>20&nbsp;ноября</b> по&nbsp;самой низкой цене.</span><span>Остальные смогут купить только <b>27-го</b>, и&nbsp;уже дороже!</span></p>
     </div>
     <div class="stage" aria-hidden="true">
       <div class="big"><span class="b1">BLACK</span><span class="b2">FRIDAY</span></div>
@@ -287,7 +288,7 @@ fbq('track', 'PageView');
     <div class="sec">
       <div class="fields" data-fields>
         <label class="tf"><span class="lbl">ПАССАЖИР</span><input name="name" type="text" maxlength="60" autocomplete="given-name" placeholder="Твое имя" required></label>
-        <label class="tf"><span class="lbl">EMAIL</span><input name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="you@mail.com" required></label>
+        <label class="tf"><span class="lbl">EMAIL <em>ПО ЖЕЛАНИЮ</em></span><input name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="you@mail.com"></label>
         <label class="tf"><span class="lbl">ТЕЛЕФОН <em>ПО ЖЕЛАНИЮ</em></span><input name="phone" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" placeholder="+ код страны и номер"></label>
         <label class="agree"><input type="checkbox" name="consent" value="да" data-consent><i aria-hidden="true"></i><span>Соглашаюсь получать письма и сообщения DENRO13 и принимаю <a href="#privacy" data-privacy>политику конфиденциальности</a>.</span></label>
         <p class="f-err" data-ferr hidden></p>
@@ -330,7 +331,7 @@ fbq('track', 'PageView');
 
     <h4>2. Какие данные мы собираем</h4>
     <ul>
-      <li>имя и email, а также номер телефона, если ты его укажешь;</li>
+      <li>имя, а также email и номер телефона, если ты их укажешь;</li>
       <li>отметку о согласии, дату и время регистрации;</li>
       <li>адрес страницы и рекламные метки (utm), по которым ты пришел;</li>
       <li>если откроешь наш Telegram-бот, также имя, username и ID в Telegram;</li>
@@ -365,7 +366,7 @@ fbq('track', 'PageView');
     <p>Ты можешь запросить доступ к своим данным, их исправление, удаление, ограничение обработки и перенос, а также возразить против обработки. Если считаешь, что мы нарушаем закон, можешь подать жалобу в польский орган по защите данных, Prezes Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</p>
 
     <h4>7. Обязательно ли давать данные</h4>
-    <p>Нет, это добровольно. Телефон можно не указывать. Но без имени и email мы не сможем внести тебя в список и прислать предложение.</p>
+    <p>Нет, это добровольно. Email и телефон можно не указывать. Но без имени мы не сможем внести тебя в список и прислать предложение.</p>
 
     <h4>8. Автоматические решения</h4>
     <p>Мы не принимаем решений о тебе полностью автоматически и не составляем профиль, который влечет для тебя юридические последствия.</p>
@@ -451,7 +452,7 @@ var CONFIG = {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var F = form.elements, name = F['name'].value.trim(), email = F['email'].value.trim(), phone = F['phone'].value.trim(), ok = F['consent'].checked;
-    var okName = name.length > 1, okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), okPhone = !phone || phone.replace(/\D/g, '').length >= 8;
+    var okName = name.length > 1, okEmail = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), okPhone = !phone || phone.replace(/\D/g, '').length >= 8;
     bad(F['name'], !okName); bad(F['email'], !okEmail); bad(F['phone'], !okPhone); $('.agree').classList.toggle('bad', !ok);
     if (!okName || !okEmail || !okPhone || !ok) {
       err.textContent = !okName ? 'Впиши свое имя.' : !okEmail ? 'Проверь email.' : !okPhone ? 'Проверь номер телефона.' : 'Поставь галочку согласия, без нее мы не сможем прислать билет.';
