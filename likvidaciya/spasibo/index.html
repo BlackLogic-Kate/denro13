@@ -32,6 +32,7 @@ h1{margin:14px 0 8px;font:900 30px/1.05 'Unbounded',sans-serif;letter-spacing:-.
 .acts{display:flex;flex-direction:column;align-items:center;gap:6px;margin:22px 0 0}
 .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:0 24px;border-radius:999px;background:var(--red);color:#fff;font:700 16px 'Onest',sans-serif;text-decoration:none;box-shadow:0 10px 36px rgba(255,61,71,.32)}
 .link{display:inline-flex;min-height:44px;align-items:center;color:var(--soft);font:600 15px 'Onest',sans-serif;text-underline-offset:4px}
+.go{margin:0 0 4px;font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--mint)}
 .note{margin:14px 0 0;font-size:13px;color:var(--muted);text-align:center}
 footer{margin-top:auto;padding:30px 0 22px;font-size:12px;color:var(--muted);text-align:center}
 footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-bottom:8px}
@@ -102,10 +103,11 @@ fbq('track', 'PageView');
     </div>
   </div>
   <div class="acts">
-    <a class="btn" data-bot href="https://t.me/Denro_Invest_bot" target="_blank" rel="noopener">Открыть бота</a>
+    <p class="go" data-go hidden></p>
+    <a class="btn" data-bot href="https://t.me/rodionenko_pro_bot">Открыть бота</a>
     <a class="link" href="https://t.me/rac_invest_support" target="_blank" rel="noopener">Написать менеджеру</a>
   </div>
-  <p class="note">Если бот не открылся, напиши менеджеру, он поможет.</p>
+  <p class="note">Если бот не открылся сам, нажми «Открыть бота». Не получилось? Напиши менеджеру, он поможет.</p>
   <footer>
     <nav><a href="/regulamin.html" target="_blank" rel="noopener">Regulamin</a><a href="/polityka-prywatnosci.html" target="_blank" rel="noopener">Политика конфиденциальности</a></nav>
     Denys Rodionenko Consulting · NIP 5223232709 · info@denro13.info
@@ -117,16 +119,29 @@ fbq('track', 'PageView');
   var CONF = {
     price: { ri: 150, pro: 150, duo: 200 },
     name: { ri: '«Рациональный инвестор»', pro: '«PRO Акции»', duo: '«Рациональный инвестор» + «PRO Акции»' },
-    book: 10, bonus: 10, deadline: '10 декабря'
+    book: 10, bonus: 10, deadline: '10 декабря',
+    bot: 'https://t.me/rodionenko_pro_bot?start=',
+    // ссылки воронок Zenedu (@rodionenko_pro_bot): [способ][курс][с Лизингом 0/1]
+    funnel: {
+      full:  { ri: ['2FVgJh1YUuj9yMv8', '09uUjLgB8k8XBiK8'], pro: ['lzuGUfUeNJDAHfUS', 'kU3yLzKjDAayGLV7'], duo: ['nsenJRfj4kHqSnAl', 'OaAF3E1Kc9c6GS3U'] },
+      split: { ri: ['4aahvwkj9bB3tkXu', 'w8WMLwf92JTs3Lw7'], pro: ['RqHmGJKI0pE1NJWn', 'RXMuTlMKLlRoFZ48'], duo: ['W60Cu0lohRauaSQ7', 'LohKDWAGGdM9fmjl'] },
+      book:  { ri: ['6K1ZSFKLa4A2LKVj', '0a97oirrE2mE35Zb'], pro: ['6K1ZSFKLa4A2LKVj', '0a97oirrE2mE35Zb'], duo: ['6K1ZSFKLa4A2LKVj', '0a97oirrE2mE35Zb'] }
+    }
   };
   var q = new URLSearchParams(location.search), o = q.get('o'), m = q.get('m') || 'full', b = q.get('b') === '1';
-  if (['full', 'split', 'book'].indexOf(m) < 0) m = 'full';
+  if (['full', 'split', 'book', 'split2', 'bookrest'].indexOf(m) < 0) m = 'full';
   function $(s) { return document.querySelector(s); }
   function fmt(n) { return (Math.round(n * 100) / 100).toString().replace('.', ',') + '€'; }
   if (!CONF.price[o]) return;
-  var p = CONF.price[o], paid = m === 'full' ? p : m === 'split' ? p / 2 : CONF.book, total = paid + (b ? CONF.bonus : 0);
+  var p = CONF.price[o], paid = m === 'full' ? p : m === 'split' || m === 'split2' ? p / 2 : m === 'bookrest' ? p - CONF.book : CONF.book, total = paid + (b ? CONF.bonus : 0);
+  var fm = m === 'split2' || m === 'bookrest' ? 'full' : m, slug = CONF.funnel[fm][o][b && fm === m ? 1 : 0];
+  var botUrl = CONF.bot + slug;
+  $('[data-bot]').href = botUrl;
   var T = $('[data-text]'), H = $('[data-h1]'), F = $('[data-facts]');
-  if (m === 'full') {
+  if (m === 'split2' || m === 'bookrest') {
+    H.textContent = 'Доплата получена!';
+    T.innerHTML = 'Курс ' + CONF.name[o] + ' оплачен полностью. <b>Доступ к урокам откроется в Telegram-боте</b> и действует 12 месяцев.';
+  } else if (m === 'full') {
     T.innerHTML = 'Курс ' + CONF.name[o] + ' оплачен. <b>Доступ к урокам уже ждет тебя в Telegram-боте</b> и действует 12 месяцев.';
   } else if (m === 'split') {
     H.textContent = 'Первый платеж получен!';
@@ -135,8 +150,13 @@ fbq('track', 'PageView');
     H.textContent = 'Цена забронирована!';
     T.innerHTML = 'Цена ' + fmt(p) + ' на курс ' + CONF.name[o] + ' закреплена за тобой. Доплатить ' + fmt(p - CONF.book) + ' необходимо до ' + CONF.deadline + ', менеджер напишет тебе в боте. <b>Доступ к урокам откроется после полной оплаты.</b>';
   }
-  F.innerHTML = '<div><span>КУРС</span><b>' + (o === 'duo' ? 'РИ + PRO' : o === 'ri' ? 'РИ' : 'PRO АКЦИИ') + '</b></div><div><span>ОПЛАЧЕНО</span><b>' + fmt(total) + '</b></div>' +
-    '<div><span>ЦЕНА КУРСА</span><b>' + fmt(p) + '</b></div><div><span>ОСТАЛОСЬ</span><b>' + fmt(p - paid) + '</b></div>';
+  var left = fm === 'full' ? 0 : p - paid;
+  F.innerHTML = '<div><span>КУРС</span><b>' + (o === 'duo' ? 'РИ + PRO' : o === 'ri' ? 'РИ' : 'PRO АКЦИИ') + '</b></div><div><span>ОПЛАЧЕНО СЕЙЧАС</span><b>' + fmt(total) + '</b></div>' +
+    '<div><span>ЦЕНА КУРСА</span><b>' + fmt(p) + '</b></div><div><span>ОСТАЛОСЬ</span><b>' + fmt(left) + '</b></div>';
+  // через 3 секунды открываем бота с нужной воронкой
+  var N = $('[data-go]'); var sec = 3;
+  N.hidden = false; N.textContent = 'Через ' + sec + ' сек. откроется бот';
+  var iv = setInterval(function () { sec--; if (sec > 0) { N.textContent = 'Через ' + sec + ' сек. откроется бот'; } else { clearInterval(iv); N.textContent = 'Открываем бота…'; location.href = botUrl; } }, 1000);
   F.hidden = false;
   if (b) { var B = $('[data-bonus]'); B.innerHTML = 'Подарок <b>«Лизинг»</b>: 2 урока, подробно про лизинг в Европе. Доступ к нему уже открыт в боте.'; B.hidden = false; }
 

@@ -22,9 +22,9 @@ const LIQ = {
 function liqProduct(body) {
   const o = Object.prototype.hasOwnProperty.call(LIQ.price, body.o) ? body.o : null;
   if (!o) return null;
-  const m = ['full', 'split', 'book'].indexOf(body.m) >= 0 ? body.m : 'full';
+  const m = ['full', 'split', 'book', 'split2', 'bookrest'].indexOf(body.m) >= 0 ? body.m : 'full';
   const b = body.b === 1 || body.b === '1' || body.b === true;
-  const paid = m === 'full' ? LIQ.price[o] : m === 'split' ? LIQ.price[o] / 2 : LIQ.book;
+  const paid = m === 'full' ? LIQ.price[o] : (m === 'split' || m === 'split2') ? LIQ.price[o] / 2 : m === 'bookrest' ? LIQ.price[o] - LIQ.book : LIQ.book;
   return { value: paid + (b ? LIQ.bonus : 0), currency: 'EUR', content_name: 'BF26 Likvidaciya ' + LIQ.name[o] + ' (' + m + (b ? ', +Lizing' : '') + ')' };
 }
 
