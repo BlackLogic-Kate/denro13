@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DENRO13 · Оплата прошла</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0e10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e10;--card:#11161a;--text:#f2f4f3;--soft:#c3ccce;--muted:#93a0a4;--red:#ff3d47;--mint:#a8e3dc;--yel:#ffd60a;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 'Onest',system-ui,sans-serif;overflow-x:hidden}
+.page{max-width:460px;margin:0 auto;padding:0 16px;min-height:100vh;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font:900 15px 'Unbounded',sans-serif;letter-spacing:.02em}
+.top span{font:700 10px 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--mint)}
+.pass{margin:18px 0 0;background:#f1efe8;color:#0b0e10;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.pass-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--red);color:#fff;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.16em}
+.pass-h b{font:900 13px 'Unbounded',sans-serif;letter-spacing:.02em}
+.pass-b{padding:22px 18px 18px}
+.ok{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#0b0e10;color:var(--mint);font:700 11px 'JetBrains Mono',monospace;letter-spacing:.12em}
+h1{margin:14px 0 8px;font:900 30px/1.05 'Unbounded',sans-serif;letter-spacing:-.01em}
+.pass p{margin:0 0 10px;font-size:15px;line-height:1.5;color:#2a3236}
+.pass p b{color:#0b0e10}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:14px 0 0;padding:14px 0 0;border-top:2px dashed #b9b5aa}
+.facts span{display:block;font:500 9px 'JetBrains Mono',monospace;letter-spacing:.14em;color:#6b675d}
+.facts b{font:700 13px 'JetBrains Mono',monospace}
+.bonus{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:#0b0e10;color:var(--text);font-size:14px;line-height:1.45}
+.bonus b{color:var(--yel)}
+.acts{display:flex;flex-direction:column;align-items:center;gap:6px;margin:22px 0 0}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:0 24px;border-radius:999px;background:var(--red);color:#fff;font:700 16px 'Onest',sans-serif;text-decoration:none;box-shadow:0 10px 36px rgba(255,61,71,.32)}
+.link{display:inline-flex;min-height:44px;align-items:center;color:var(--soft);font:600 15px 'Onest',sans-serif;text-underline-offset:4px}
+.note{margin:14px 0 0;font-size:13px;color:var(--muted);text-align:center}
+footer{margin-top:auto;padding:30px 0 22px;font-size:12px;color:var(--muted);text-align:center}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-bottom:8px}
+footer a{color:var(--muted)}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+window.__fbqLoad=function(){if(window.__fbqLoaded)return;window.__fbqLoaded=1;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1986731632135797');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+<!-- Cookie consent (RODO): Meta Pixel грузится только после согласия -->
+<script>
+(function(){
+  var KEY='cc_consent_v1', cbs=[];
+  function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)||'null'); if(v && v.t && (Date.now()-v.t) < 365*864e5) return v.s; }catch(e){} return null; }
+  function set(s){ try{ localStorage.setItem(KEY, JSON.stringify({s:s,t:Date.now()})); }catch(e){} }
+  window.__ccGranted=function(){ return get()==='granted'; };
+  window.__ccOnGrant=function(fn){ if(window.__ccGranted()) fn(); else cbs.push(fn); };
+  function grant(){ set('granted'); if(window.__fbqLoad) window.__fbqLoad(); var c=cbs; cbs=[]; c.forEach(function(f){ try{f();}catch(e){} }); hide(); }
+  function deny(){ set('denied'); hide(); }
+  var el;
+  function hide(){ if(el){ el.classList.remove('cc-show'); document.documentElement.classList.remove('cc-open'); } }
+  function show(){
+    if(!el){
+      var st=document.createElement('style');
+      st.textContent='.cc-bar{position:fixed;left:50%;bottom:14px;transform:translate(-50%,150%);width:calc(min(460px,100vw) - 24px);z-index:1000;background:rgba(22,22,22,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#f2eeea;border:1px solid rgba(168,227,220,.3);box-shadow:0 18px 50px rgba(0,0,0,.65);padding:16px 16px 14px;font:500 13px/1.5 "Onest",system-ui,sans-serif;border-radius:14px;transition:transform .45s cubic-bezier(.2,.8,.2,1)}'+'.cc-bar.cc-show{transform:translate(-50%,0)}.cc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}.cc-ico{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:rgba(168,227,220,.12);display:flex;align-items:center;justify-content:center}.cc-ico svg{width:20px;height:20px}.cc-t{font-weight:800;font-size:14px;letter-spacing:.2px}.cc-bar p{margin:0 0 12px;color:rgba(242,238,234,.72);font-size:12.5px}.cc-bar a{color:#a8e3dc;text-decoration:none;border-bottom:1px solid rgba(168,227,220,.4)}'+'.cc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cc-btns button{height:42px;border-radius:10px;font:700 13px "Onest",system-ui,sans-serif;cursor:pointer;transition:transform .1s,background .2s}.cc-btns button:active{transform:scale(.98)}.cc-no{background:rgba(255,255,255,.06);color:#f2eeea;border:1px solid rgba(255,255,255,.18)}.cc-yes{background:#a8e3dc;color:#111;border:1px solid #a8e3dc}'+'html.cc-open .floating-cta{opacity:0!important;pointer-events:none!important}';
+      document.head.appendChild(st);
+      el=document.createElement('div'); el.className='cc-bar'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Cookies');
+      el.innerHTML='<div class="cc-head"><span class="cc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#a8e3dc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A9 9 0 1 1 11.5 3a3 3 0 0 0 3.5 3.5 3 3 0 0 0 3.5 3.500A3 3 0 0 0 21 12.5z"/><circle cx="8.500" cy="10.500" r=".9" fill="#a8e3dc"/><circle cx="12" cy="15.500" r=".9" fill="#a8e3dc"/><circle cx="15.500" cy="12.500" r=".9" fill="#a8e3dc"/></svg></span><span class="cc-t">Мы используем cookie</span></div>'+'<p>Они помогают нам понимать, какая реклама работает (Meta Pixel). Подробнее в <a href="#privacy">Политике конфиденциальности</a>.</p><div class="cc-btns"><button type="button" class="cc-no">Отклонить</button><button type="button" class="cc-yes">Принять</button></div>';
+      document.body.appendChild(el);
+      el.querySelector('.cc-yes').onclick=grant; el.querySelector('.cc-no').onclick=deny;
+    }
+    document.documentElement.classList.add('cc-open');
+    requestAnimationFrame(function(){ el.classList.add('cc-show'); });
+  }
+  window.__ccOpen=show;
+  if(get()==='granted'){ if(window.__fbqLoad) window.__fbqLoad(); }
+  document.addEventListener('DOMContentLoaded',function(){
+    if(get()===null) setTimeout(show,800);
+    var f=document.querySelector('footer');
+    if(f){ var a=document.createElement('a'); a.href='#'; a.textContent='Настройки cookie'; a.style.cssText='display:inline-block;margin-top:8px;font-size:.68rem;color:inherit;opacity:.7;text-decoration:underline';
+      a.onclick=function(e){ e.preventDefault(); show(); }; var w=f.querySelector('.footer-inner')||f; w.appendChild(a); }
+  });
+})();
+</script>
+</head>
+<body>
+<div class="page">
+  <div class="top">DENRO13 <span>СЕКРЕТНЫЙ РЕЙС</span></div>
+  <div class="pass">
+    <div class="pass-h"><span>BOARDING PASS</span><b>DENRO13</b></div>
+    <div class="pass-b">
+      <span class="ok">✓ ОПЛАТА ПРОШЛА</span>
+      <h1 data-h1>Добро пожаловать на борт!</h1>
+      <p data-text>Спасибо за покупку. Дальнейшие шаги придут тебе в Telegram-боте.</p>
+      <div class="facts" data-facts hidden></div>
+      <div class="bonus" data-bonus hidden></div>
+    </div>
+  </div>
+  <div class="acts">
+    <a class="btn" data-bot href="https://t.me/Denro_Invest_bot" target="_blank" rel="noopener">Открыть бота</a>
+    <a class="link" href="https://t.me/rac_invest_support" target="_blank" rel="noopener">Написать менеджеру</a>
+  </div>
+  <p class="note">Если бот не открылся, напиши менеджеру, он поможет.</p>
+  <footer>
+    <nav><a href="/regulamin.html" target="_blank" rel="noopener">Regulamin</a><a href="/polityka-prywatnosci.html" target="_blank" rel="noopener">Политика конфиденциальности</a></nav>
+    Denys Rodionenko Consulting · NIP 5223232709 · info@denro13.info
+  </footer>
+</div>
+<script>
+(function () {
+  // Ссылка сюда после оплаты: /likvidaciya/spasibo/?o=ri|pro|duo&m=full|split|book&b=1 (b=1, если добавлен Лизинг)
+  var CONF = {
+    price: { ri: 150, pro: 150, duo: 200 },
+    name: { ri: '«Рациональный инвестор»', pro: '«PRO Акции»', duo: '«Рациональный инвестор» + «PRO Акции»' },
+    book: 10, bonus: 10, deadline: '10 декабря'
+  };
+  var q = new URLSearchParams(location.search), o = q.get('o'), m = q.get('m') || 'full', b = q.get('b') === '1';
+  if (['full', 'split', 'book'].indexOf(m) < 0) m = 'full';
+  function $(s) { return document.querySelector(s); }
+  function fmt(n) { return (Math.round(n * 100) / 100).toString().replace('.', ',') + '€'; }
+  if (!CONF.price[o]) return;
+  var p = CONF.price[o], paid = m === 'full' ? p : m === 'split' ? p / 2 : CONF.book, total = paid + (b ? CONF.bonus : 0);
+  var T = $('[data-text]'), H = $('[data-h1]'), F = $('[data-facts]');
+  if (m === 'full') {
+    T.innerHTML = 'Курс ' + CONF.name[o] + ' оплачен. <b>Доступ к урокам уже ждет тебя в Telegram-боте</b> и действует 12 месяцев.';
+  } else if (m === 'split') {
+    H.textContent = 'Первый платеж получен!';
+    T.innerHTML = 'Цена ' + fmt(p) + ' на курс ' + CONF.name[o] + ' закреплена за тобой. Второй платеж ' + fmt(p - paid) + ' необходимо внести до ' + CONF.deadline + ', менеджер напишет тебе в боте. <b>Доступ к урокам откроется после второго платежа.</b>';
+  } else {
+    H.textContent = 'Цена забронирована!';
+    T.innerHTML = 'Цена ' + fmt(p) + ' на курс ' + CONF.name[o] + ' закреплена за тобой. Доплатить ' + fmt(p - CONF.book) + ' необходимо до ' + CONF.deadline + ', менеджер напишет тебе в боте. <b>Доступ к урокам откроется после полной оплаты.</b>';
+  }
+  F.innerHTML = '<div><span>КУРС</span><b>' + (o === 'duo' ? 'РИ + PRO' : o === 'ri' ? 'РИ' : 'PRO АКЦИИ') + '</b></div><div><span>ОПЛАЧЕНО</span><b>' + fmt(total) + '</b></div>' +
+    '<div><span>ЦЕНА КУРСА</span><b>' + fmt(p) + '</b></div><div><span>ОСТАЛОСЬ</span><b>' + fmt(p - paid) + '</b></div>';
+  F.hidden = false;
+  if (b) { var B = $('[data-bonus]'); B.innerHTML = 'Подарок <b>«Лизинг»</b>: 2 урока, подробно про лизинг в Европе. Доступ к нему уже открыт в боте.'; B.hidden = false; }
+
+  // Purchase: браузер + сервер (CAPI) с одним event_id; при обновлении страницы не повторяем
+  var key = 'liq_pur_' + o + m + (b ? 1 : 0);
+  try { if (localStorage.getItem(key) && Date.now() - +localStorage.getItem(key) < 6 * 3600e3) return; localStorage.setItem(key, Date.now()); } catch (e) {}
+  function cookie(n) { var mm = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return mm ? mm[2] : null; }
+  var eventId = 'pur_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+  try { fbq('track', 'Purchase', { value: total, currency: 'EUR', content_name: 'BF26 likvidaciya ' + o + ' ' + m + (b ? ' bonus' : '') }, { eventID: eventId }); } catch (e) {}
+  try {
+    var pp = new URLSearchParams({ event: 'liq_purchase', page: location.pathname, label: o + '-' + m + (b ? '-bonus' : '') });
+    fetch('/.netlify/functions/track?' + pp.toString(), { keepalive: true }).catch(function () {});
+  } catch (e) {}
+  window.__ccOnGrant(function () {
+    fetch('/.netlify/functions/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product: 'liq', o: o, m: m, b: b ? 1 : 0, event_id: eventId, url: location.href, fbp: cookie('_fbp'), fbc: cookie('_fbc') }) }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>

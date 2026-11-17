@@ -12,6 +12,22 @@ const PRODUCTS = {
   ipoteka: { value: 9, currency: 'EUR', content_name: 'Ipoteka vs Arenda' },
 };
 
+// Черная пятница 2026, ликвидация курсов: сумма считается здесь по курсу (o), способу оплаты (m) и подарку (b)
+const LIQ = {
+  price: { ri: 150, pro: 150, duo: 200 },
+  name:  { ri: 'Racionalnyj investor', pro: 'PRO Akcii', duo: 'RI + PRO Akcii' },
+  book: 10,
+  bonus: 10,
+};
+function liqProduct(body) {
+  const o = Object.prototype.hasOwnProperty.call(LIQ.price, body.o) ? body.o : null;
+  if (!o) return null;
+  const m = ['full', 'split', 'book'].indexOf(body.m) >= 0 ? body.m : 'full';
+  const b = body.b === 1 || body.b === '1' || body.b === true;
+  const paid = m === 'full' ? LIQ.price[o] : m === 'split' ? LIQ.price[o] / 2 : LIQ.book;
+  return { value: paid + (b ? LIQ.bonus : 0), currency: 'EUR', content_name: 'BF26 Likvidaciya ' + LIQ.name[o] + ' (' + m + (b ? ', +Lizing' : '') + ')' };
+}
+
 const crypto = require('crypto');
 
 exports.handler = async function (event) {
@@ -37,7 +53,8 @@ exports.handler = async function (event) {
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch (e) {}
 
-  const product  = Object.prototype.hasOwnProperty.call(PRODUCTS, body.product) ? PRODUCTS[body.product] : PRODUCTS.mini;
+  const product  = body.product === 'liq' ? (liqProduct(body) || PRODUCTS.mini)
+                 : Object.prototype.hasOwnProperty.call(PRODUCTS, body.product) ? PRODUCTS[body.product] : PRODUCTS.mini;
   const eventId  = body.event_id || crypto.randomUUID();
   const fbp      = body.fbp || null;
   const fbc      = body.fbc || null;
