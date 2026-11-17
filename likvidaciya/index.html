@@ -730,6 +730,8 @@ h1{font-size:44px}
 .tk-hint{margin:6px 0 0;font-size:13px;font-weight:600;color:#0b0e10}
 /* способ оплаты */
 .pm{display:flex;flex-direction:column;gap:10px}
+.agree{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;margin-top:14px;font-size:14px;line-height:1.45;color:var(--text);cursor:pointer}.agree input{width:20px;height:20px;margin:1px 0 0;accent-color:#ff3d47;cursor:pointer}.agree a{color:inherit;text-decoration:underline}.agree-doc{margin-top:8px;font-size:13px;color:var(--muted)}.agree-doc summary{cursor:pointer;text-decoration:underline;padding:6px 0}.agree-doc .doc{margin-top:6px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
 .pm-opt{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:start;width:100%;padding:16px;border-radius:16px;border:1.5px solid rgba(255,255,255,.14);background:var(--card2);color:var(--text);text-align:left;font:inherit;cursor:pointer}
 .pm-opt[aria-checked="true"]{border-color:var(--mint);background:rgba(19,42,49,.9)}
 .pm-dot{width:20px;height:20px;margin-top:2px;border-radius:50%;border:2px solid var(--muted)}
@@ -869,7 +871,7 @@ fbq('track', 'PageView');
       st.textContent='.cc-bar{position:fixed;left:50%;bottom:14px;transform:translate(-50%,150%);width:calc(min(460px,100vw) - 24px);z-index:1000;background:rgba(22,22,22,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#f2eeea;border:1px solid rgba(168,227,220,.3);box-shadow:0 18px 50px rgba(0,0,0,.65);padding:16px 16px 14px;font:500 13px/1.5 "Onest",system-ui,sans-serif;border-radius:14px;transition:transform .45s cubic-bezier(.2,.8,.2,1)}'+'.cc-bar.cc-show{transform:translate(-50%,0)}.cc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}.cc-ico{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:rgba(168,227,220,.12);display:flex;align-items:center;justify-content:center}.cc-ico svg{width:20px;height:20px}.cc-t{font-weight:800;font-size:14px;letter-spacing:.2px}.cc-bar p{margin:0 0 12px;color:rgba(242,238,234,.72);font-size:12.5px}.cc-bar a{color:#a8e3dc;text-decoration:none;border-bottom:1px solid rgba(168,227,220,.4)}'+'.cc-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cc-btns button{height:42px;border-radius:10px;font:700 13px "Onest",system-ui,sans-serif;cursor:pointer;transition:transform .1s,background .2s}.cc-btns button:active{transform:scale(.98)}.cc-no{background:rgba(255,255,255,.06);color:#f2eeea;border:1px solid rgba(255,255,255,.18)}.cc-yes{background:#a8e3dc;color:#111;border:1px solid #a8e3dc}'+'html.cc-open .floating-cta{opacity:0!important;pointer-events:none!important}';
       document.head.appendChild(st);
       el=document.createElement('div'); el.className='cc-bar'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Cookies');
-      el.innerHTML='<div class="cc-head"><span class="cc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#a8e3dc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A9 9 0 1 1 11.5 3a3 3 0 0 0 3.5 3.5 3 3 0 0 0 3.5 3.500A3 3 0 0 0 21 12.5z"/><circle cx="8.500" cy="10.500" r=".9" fill="#a8e3dc"/><circle cx="12" cy="15.500" r=".9" fill="#a8e3dc"/><circle cx="15.500" cy="12.500" r=".9" fill="#a8e3dc"/></svg></span><span class="cc-t">Мы используем cookie</span></div>'+'<p>Они помогают нам понимать, какая реклама работает (Meta Pixel). Подробнее в <a href="#privacy">Политике конфиденциальности</a>.</p><div class="cc-btns"><button type="button" class="cc-no">Отклонить</button><button type="button" class="cc-yes">Принять</button></div>';
+      el.innerHTML='<div class="cc-head"><span class="cc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#a8e3dc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A9 9 0 1 1 11.5 3a3 3 0 0 0 3.5 3.5 3 3 0 0 0 3.5 3.500A3 3 0 0 0 21 12.5z"/><circle cx="8.500" cy="10.500" r=".9" fill="#a8e3dc"/><circle cx="12" cy="15.500" r=".9" fill="#a8e3dc"/><circle cx="15.500" cy="12.500" r=".9" fill="#a8e3dc"/></svg></span><span class="cc-t">Мы используем cookie</span></div>'+'<p>Они помогают нам понимать, какая реклама работает (Meta Pixel). Подробнее в <a href="/polityka-prywatnosci" target="_blank" rel="noopener">Политике конфиденциальности</a>.</p><div class="cc-btns"><button type="button" class="cc-no">Отклонить</button><button type="button" class="cc-yes">Принять</button></div>';
       document.body.appendChild(el);
       el.querySelector('.cc-yes').onclick=grant; el.querySelector('.cc-no').onclick=deny;
     }
@@ -1168,7 +1170,7 @@ var CONFIG = {
     ['Какой вариант выбрать?', 'Если ты только начинаешь, бери «Рационального инвестора». Если уже инвестируешь в ETF и хочешь выбирать отдельные акции, бери «PRO Акции». Если хочешь пройти весь путь, бери оба курса: проходить лучше по порядку, сначала «Рациональный инвестор», потом «PRO Акции».'],
     ['Можно оплатить частями?', 'Да. Можно оплатить двумя платежами: половину сейчас, половину до 10 декабря. Или забронировать цену за 10€ и доплатить остаток до 10 декабря. Доступ к урокам откроется после полной оплаты.'],
     ['Когда откроется доступ?', 'Сразу после полной оплаты. Если ты платишь двумя платежами или бронируешь цену, доступ откроется после последнего платежа.'],
-    ['Что за колесо с бонусом?', 'При оплате можно покрутить колесо и получить подарок к курсу. Его можно добавить к заказу или отказаться. Подробности в правилах бонуса внизу страницы.'],
+    ['Что за колесо с бонусом?', 'При оплате можно покрутить колесо и получить бонус к курсу. Его можно добавить к заказу или отказаться. Подробности в правилах бонуса внизу страницы.'],
     ['Я совсем не разбираюсь в финансах. Мне подойдет?', 'Да. «Рациональный инвестор» начинается с основ: какие бывают инструменты, как выбрать брокера и открыть счет.'],
     ['У меня мало времени. Я успею?', 'Уроки короткие, по 15–20 минут, и все в записи. Смотришь, когда удобно, а доступ открыт 12 месяцев.'],
     ['Сейчас нестабильно. Это вообще время инвестировать?', 'В курсах учим не угадывать рынок, а строить систему: понятные цели, долгий горизонт и спокойное отношение к падениям.'],
@@ -1449,14 +1451,14 @@ var CONFIG = {
   }
 
   /* --- payments --- */
-  var PAY = { o: null, mode: 'full', bonus: false, spun: false };
+  var PAY = { o: null, mode: 'full', bonus: false, spun: false, agree: false };
   function half(n) { return Math.round(n / 2 * 100) / 100; }
   function payModes(o) {
     var p = now(o), b = o.book[tier()];
     return [
       { id: 'full', t: 'Полностью', a: fmt(p), d: 'Доступ откроется сразу после оплаты.' },
-      { id: 'split', t: 'Двумя платежами', a: fmt(half(p)) + ' сейчас', d: 'Первый платеж ' + fmt(half(p)) + ' сейчас, второй ' + fmt(p - half(p)) + ' до ' + C.payDeadline + '. Доступ откроется после второго платежа.' },
-      { id: 'book', t: 'Бронь цены', a: fmt(b) + ' сейчас', d: 'За тобой закрепляется цена ' + fmt(p) + '. Доплатить ' + fmt(p - b) + ' необходимо до ' + C.payDeadline + '. Доступ откроется после полной оплаты.' }
+      { id: 'split', t: 'Двумя платежами', a: fmt(half(p)) + ' сейчас', d: 'Первый платеж ' + fmt(half(p)) + ' сейчас, второй ' + fmt(p - half(p)) + ' до ' + C.payDeadline + '. Доступ откроется после второго платежа. Если не доплатить вовремя, первый платеж не возвращается.' },
+      { id: 'book', t: 'Бронь цены', a: fmt(b) + ' сейчас', d: 'За тобой закрепляется цена ' + fmt(p) + '. Доплатить ' + fmt(p - b) + ' необходимо до ' + C.payDeadline + '. Доступ откроется после полной оплаты. Если не доплатить вовремя, бронь сгорает.' }
     ].filter(function (m) { return C.payModes.indexOf(m.id) >= 0; });
   }
   function payNow() { var o = PAY.o, m = PAY.mode; return m === 'full' ? now(o) : m === 'split' ? half(now(o)) : o.book[tier()]; }
@@ -1466,7 +1468,7 @@ var CONFIG = {
       fetch('/.netlify/functions/track?' + p.toString(), { keepalive: true }).catch(function () {}); } catch (x) {}
   }
   function px() { try { if (window.fbq) window.fbq.apply(null, arguments); } catch (x) {} }
-  function openPay(id) { sheets('liq_click_buy', id); px('track', 'AddToCart', { content_name: 'BF26 likvidaciya ' + id, value: now(O[id]), currency: 'EUR' }); PAY.o = O[id]; PAY.mode = 'full'; PAY.bonus = false; PAY.spun = false; payStep1(); }
+  function openPay(id) { sheets('liq_click_buy', id); px('track', 'AddToCart', { content_name: 'BF26 likvidaciya ' + id, value: now(O[id]), currency: 'EUR' }); PAY.o = O[id]; PAY.mode = 'full'; PAY.bonus = false; PAY.spun = false; PAY.agree = false; payStep1(); }
   function payStep1() {
     var o = PAY.o;
     var body = '<div><div class="m-kind">Способ оплаты</div><h3 class="m-title" id="m-title">' + oname(o) + '</h3></div>' +
@@ -1474,8 +1476,12 @@ var CONFIG = {
         return '<button class="pm-opt" type="button" role="radio" aria-checked="' + (m.id === PAY.mode) + '" data-act="pmode" data-m="' + m.id + '">' +
           '<span class="pm-dot" aria-hidden="true"></span><span class="pm-t"><b>' + m.t + '</b><span>' + m.d + '</span></span><span class="pm-a">' + m.a + '</span></button>';
       }).join('') + '</div>' +
-      '<p class="m-note">Курс в записи, доступ на ' + C.accessMonths + ' месяцев. Старая версия курса, без обновлений.</p>';
-    openModal(body, '<button class="btn btn-red btn-block" type="button" data-act="pnext">Дальше</button>', true);
+      '<p class="m-note">Курс в записи, доступ на ' + C.accessMonths + ' месяцев. Старая версия курса, без обновлений.</p>' +
+      '<label class="agree"><input type="checkbox" data-agree' + (PAY.agree ? ' checked' : '') + '><span>Я принимаю Условия покупки и <a href="/regulamin" target="_blank" rel="noopener">Regulamin</a> и прошу открыть доступ к урокам сразу после полной оплаты. Я понимаю, что после открытия доступа теряю право отказаться от покупки в течение 14 дней.</span></label>' +
+      '<details class="agree-doc"><summary>Прочитать условия покупки</summary>' + DOCS.terms().replace(/^[\s\S]*?<div class="doc">/, '<div class="doc">') + '</details>';
+    openModal(body, '<button class="btn btn-red btn-block" type="button" data-act="pnext"' + (PAY.agree ? '' : ' disabled') + '>Дальше</button>', true);
+    var cb = $('[data-agree]');
+    if (cb) cb.addEventListener('change', function () { PAY.agree = cb.checked; var nb = $('[data-act="pnext"]'); if (nb) nb.disabled = !cb.checked; if (cb.checked) sheets('liq_agree', PAY.o.id); });
   }
   // колесо «Секретный рейс»: во всех секторах один и тот же бонус (так и написано в правилах)
   var WHEEL_N = 8, wheelRot = 0, wheelBusy = false, wheelWon = false, wheelSector = 0;
@@ -1505,8 +1511,8 @@ var CONFIG = {
   function wheelActs() {
     var p = payNow(), el = $('[data-wact]'); if (!el) return;
     el.innerHTML = wheelWon
-      ? '<button class="btn btn-red btn-block" type="button" data-act="pbonus">Добавить подарок и оплатить ' + fmt(p + C.bonus.price) + '</button><button class="link" type="button" data-act="pnobonus">Оплатить ' + fmt(p) + ' без подарка</button>'
-      : '<button class="btn btn-red btn-block" type="button" data-act="spin"' + (wheelBusy ? ' disabled' : '') + '>' + (wheelBusy ? 'Крутим…' : 'Крутить колесо') + '</button><button class="link" type="button" data-act="pnobonus">Оплатить ' + fmt(p) + ' без подарка</button>';
+      ? '<button class="btn btn-red btn-block" type="button" data-act="pbonus">Добавить бонус и оплатить ' + fmt(p + C.bonus.price) + '</button><button class="link" type="button" data-act="pnobonus">Оплатить ' + fmt(p) + ' без бонуса</button>'
+      : '<button class="btn btn-red btn-block" type="button" data-act="spin"' + (wheelBusy ? ' disabled' : '') + '>' + (wheelBusy ? 'Крутим…' : 'Крутить колесо') + '</button><button class="link" type="button" data-act="pnobonus">Оплатить ' + fmt(p) + ' без бонуса</button>';
   }
   function setRot(deg) { var wg = $('[data-wheel]'); if (wg) wg.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)'; }
   function tickPtr() {
@@ -1516,8 +1522,8 @@ var CONFIG = {
   }
   function payStep2() {
     wheelBusy = false; wheelWon = false;
-    var body = '<div><div class="m-kind">Подарок к рейсу</div><h3 class="m-title" id="m-title">Крути колесо</h3></div>' +
-      '<p class="m-soft" data-slot-res aria-live="polite">Нажми на колесо или раскрути его пальцем. Можно и без подарка.</p>' +
+    var body = '<div><div class="m-kind">Бонус к рейсу</div><h3 class="m-title" id="m-title">Крути колесо</h3></div>' +
+      '<p class="m-soft" data-slot-res aria-live="polite">Нажми на колесо или раскрути его пальцем. Можно и без бонуса.</p>' +
       '<div class="wheel" data-wheel-box><span class="wheel-ptr" data-ptr aria-hidden="true"></span>' + wheelSvg() + '<canvas class="wconf" data-conf width="680" height="680"></canvas></div>' +
       '<div class="wact" data-wact></div>' + note('Цена Лизинга: 10€?') +
       '<button class="link wback" type="button" data-act="pback">Назад к способу оплаты</button>';
@@ -1547,7 +1553,7 @@ var CONFIG = {
     var win = box.querySelector('[data-sec="' + wheelSector + '"]'); if (win) win.classList.add('win');
     confetti();
     var res = $('[data-slot-res]');
-    res.innerHTML = 'Выпал <b>GATE ' + (wheelSector + 1) + '</b>, твой подарок: <b>«' + esc(C.bonus.name) + '» за ' + fmt(C.bonus.price) + '</b>, ' + esc(C.bonus.about) + '. Доступ к нему откроется сразу после оплаты, даже при брони.';
+    res.innerHTML = 'Выпал <b>GATE ' + (wheelSector + 1) + '</b>, твой бонус: <b>«' + esc(C.bonus.name) + '» за ' + fmt(C.bonus.price) + '</b>, ' + esc(C.bonus.about) + '. Доступ к нему откроется сразу после оплаты, даже при брони.';
     wheelActs();
   }
   function wheelDrag() {
@@ -1584,6 +1590,7 @@ var CONFIG = {
   }
   function getUtm() { var r = {}; try { var q = new URL(location.href).searchParams; ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { if (q.get(k)) r[k] = q.get(k); }); } catch (e) {} return r; }
   function startPayment() {
+    if (!PAY.agree) { payStep1(); return; }
     var o = PAY.o, t = tier(), key = PAY.mode + (PAY.bonus ? '_bonus' : '');
     sheets('liq_checkout', o.id + '-' + PAY.mode + (PAY.bonus ? '-bonus' : ''));
     px('track', 'InitiateCheckout', { content_name: 'BF26 likvidaciya ' + o.id + ' ' + PAY.mode + (PAY.bonus ? ' bonus' : ''), value: payNow() + (PAY.bonus ? C.bonus.price : 0), currency: 'EUR' });
@@ -1606,20 +1613,20 @@ var CONFIG = {
     terms: function () {
       var r = C.offers.map(function (o) { return '«' + esc(o.name) + '»: ' + fmt(o.price.list) + ', бронь ' + fmt(o.book.list); }).join('; ');
       return '<div><div class="m-kind">Документы</div><h3 class="m-title" id="m-title">Условия покупки</h3></div><div class="doc">' +
-        '<h4>1. Продавец</h4><p>Denys Rodionenko Consulting, Варшава. NIP 5223232709, REGON 522777776. E-mail: info@denro13.info, Telegram: @rac_invest_support.</p>' +
+        '<h4>1. Продавец</h4><p>Denys Rodionenko Consulting, Варшава. NIP 5223232709, REGON 522777776. E-mail: info@denro13.info, Telegram: @rac_invest_support. На странице оплаты Stripe продавец показан как «Denro Invest».</p>' +
         '<h4>2. Что продается</h4><p>Доступ к записи старой версии курсов «Рациональный инвестор» и «PRO Акции», без обновлений. Доступ к урокам действует ' + C.accessMonths + ' месяцев с момента открытия.</p>' +
         '<h4>3. Сроки</h4><p>Закрытая продажа для листа ожидания: с 12:00 20 ноября 2026 до 12:00 21 ноября 2026 по польскому времени.</p>' +
         '<h4>4. Цены</h4><p>' + r + '. Цены в евро, брутто. Цена закрепляется за покупателем в момент первой оплаты: полной, первого платежа или брони.</p>' +
-        '<h4>5. Способы оплаты</h4><p>Полностью одним платежом. Двумя платежами: половина при заказе, вторая половина до ' + C.payDeadline + ' 2026. Бронь: 10€ при заказе, остаток до ' + C.payDeadline + ' 2026. Бронь закрепляет цену и засчитывается в нее. Данные карты продавец не получает.</p>' +
+        '<h4>5. Способы оплаты</h4><p>Полностью одним платежом. Двумя платежами: половина при заказе, вторая половина до ' + C.payDeadline + ' 2026. Бронь: 10€ при заказе, остаток до ' + C.payDeadline + ' 2026. Бронь закрепляет цену и засчитывается в нее. Если остаток не оплачен до ' + C.payDeadline + ' 2026, доступ к урокам курса не открывается, бронь сгорает, а первый платеж не возвращается. Данные карты продавец не получает.</p>' +
         '<h4>6. Доступ</h4><p>Доступ к урокам курса открывается после полной оплаты, в Telegram-боте. Если к заказу добавлен бонус «' + esc(C.bonus.name) + '», доступ к нему открывается сразу после первой оплаты, в том числе брони.</p>' +
         
-        '<h4>7. Отказ от покупки</h4><p>Право на отказ от договора в течение 14 дней описано в Regulamin (§6).</p>' +
+        '<h4>7. Отказ от покупки</h4><p>Перед оплатой покупатель отмечает согласие, чтобы доступ к урокам открылся сразу после оплаты, и подтверждает, что знает: после открытия доступа право отказаться от договора в течение 14 дней не действует. Подробно в Regulamin (§6).</p>' +
         '<h4>8. Важно</h4><p>Курсы носят образовательный характер и не являются инвестиционной рекомендацией. Решения об инвестициях покупатель принимает сам и на свой риск. Остальное регулирует <a href="/regulamin.html" target="_blank" rel="noopener">Regulamin</a>.</p></div>';
     },
     bonus: function () {
       return '<div><div class="m-kind">Документы</div><h3 class="m-title" id="m-title">Правила бонуса «Колесо»</h3></div><div class="doc">' +
-        '<h4>1. Что это</h4><p>При оплате курса на этом сайте покупатель может покрутить колесо и получить подарок к заказу.</p>' +
-        '<h4>2. Что на колесе</h4><p>На колесе ' + WHEEL_N + ' секторов. Во всех секторах один и тот же бонус: «' + esc(C.bonus.name) + '» за ' + fmt(C.bonus.price) + '. Крутить колесо не обязательно, можно оплатить курс без подарка.</p>' +
+        '<h4>1. Что это</h4><p>При оплате курса на этом сайте покупатель может покрутить колесо и получить бонус к заказу.</p>' +
+        '<h4>2. Что на колесе</h4><p>На колесе ' + WHEEL_N + ' секторов. Во всех секторах один и тот же бонус: «' + esc(C.bonus.name) + '» за ' + fmt(C.bonus.price) + '. Крутить колесо не обязательно, можно оплатить курс без бонуса.</p>' +
         '<h4>3. Что входит</h4><p>«' + esc(C.bonus.name) + '»: ' + esc(C.bonus.about) + '.</p>' +
         '<h4>4. Как получить</h4><p>Бонус добавляется к заказу по желанию покупателя и оплачивается вместе с ним. Доступ к бонусу открывается сразу после оплаты, даже если курс забронирован. От бонуса можно отказаться и оплатить только курс.</p>' +
         '<h4>5. Срок</h4><p>Бонус действует только в этом заказе, в период продажи. Бонус нельзя обменять на деньги или передать другому человеку.</p></div>';
@@ -1642,7 +1649,7 @@ var CONFIG = {
     else if (act === 'ask') ask();
     else if (act === 'pay') openPay(b.getAttribute('data-o'));
     else if (act === 'pmode') { PAY.mode = b.getAttribute('data-m'); $$('[data-act="pmode"]').forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); }); }
-    else if (act === 'pnext') payStep2();
+    else if (act === 'pnext') { if (PAY.agree) payStep2(); }
     else if (act === 'pback') payStep1();
     else if (act === 'spin') spin(0);
     else if (act === 'pbonus') { PAY.bonus = true; startPayment(); }
