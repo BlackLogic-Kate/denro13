@@ -636,6 +636,7 @@ body.lock .fab{display:none}
 .prod.tk .fit{color:#4b5659}
 .prod.tk .fit span{color:var(--ink)}
 .prod.tk .inside li{color:#26302f}
+.prod.tk .club{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;margin:14px 0 0;padding:12px 14px;border-radius:12px;background:#fff1d6;border:1px dashed #e0a43a;color:#3a2a08;font-size:14px;line-height:1.45;font-weight:600}
 .prod.tk .inside li::before{background-color:rgba(11,14,16,.08);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b0e10' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='4 12 10 18 20 6'/%3E%3C/svg%3E")}
 .tk-lvl{font:700 12px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#4b5659}
 .tk-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:14px;border-top:1px solid rgba(11,14,16,.1)}
@@ -1103,6 +1104,7 @@ var CONFIG = {
   payDeadline: '10 декабря', // до какого числа доплатить остаток (два платежа и бронь)
   accessMonths: 12,          // доступ к урокам, месяцев
   // бонус в автомате при оплате: выпадает всем одинаковый
+  club: '+ В ПОДАРОК доступ в закрытый клуб рациональных инвесторов с офлайн/онлайн встречами и закрытыми разборами, публичным портфелем',
   bonus: { name: 'Лизинг', price: 10, about: '2 урока, подробно про лизинг в Европе' },
   // ОПЛАТА. Вариант Б: адрес функции Netlify, которая создает оплату Stripe (тогда ссылки ниже не нужны).
   checkoutUrl: '',
@@ -1308,6 +1310,7 @@ var CONFIG = {
           '<span class="tk-lvl">' + esc(o.levelName) + '</span>' +
           '<p class="fit"><span>Тебе подойдет, если</span> ' + esc(o.fit) + '</p>' +
           '<ul class="inside">' + o.inside.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+          (C.club ? '<p class="club"><span aria-hidden="true">🎁</span><span>' + esc(C.club) + '</span></p>' : '') +
           '<div class="tk-facts"><div><span class="lbl">ВЕРСИЯ КУРСА</span><span class="v">СТАРАЯ</span></div><div><span class="lbl">ДОСТУП</span><span class="v">12 МЕСЯЦЕВ</span></div><div><span class="lbl">ФОРМАТ</span><span class="v">В ЗАПИСИ</span></div><div><span class="lbl">ОПЛАТА</span><span class="v">3 СПОСОБА</span></div></div>' +
         '</div>' +
         '<div class="perf"></div>' +
