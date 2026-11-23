@@ -1049,7 +1049,7 @@ fbq('track', 'PageView');
   <div class="wrap">
     <div class="final">
       <h2>Успей забрать курс<br><span>по цене ликвидации</span></h2>
-      <p data-final-text>Цена ликвидации действует только сегодня, до 23:59.</p>
+      <p data-final-text>Цена ликвидации действует только 24 часа.</p>
       <div class="timer" data-timer>
         <div class="tc"><b data-d>00</b><span>дней</span></div>
         <div class="tc"><b data-h>00</b><span>часов</span></div>
@@ -1092,8 +1092,8 @@ var CONFIG = {
   // closedEnd..openStart, пауза; openStart..saleEnd, Черная пятница для всех (27.11); после saleEnd, конец
   saleStart: '2026-11-20T12:00:00+01:00',
   closedEnd: '2026-11-21T12:00:00+01:00',
-  openStart: '2026-11-27T00:00:00+01:00',
-  saleEnd:   '2026-11-27T23:59:59+01:00',
+  openStart: '2026-11-27T12:00:00+01:00',
+  saleEnd:   '2026-11-28T12:00:00+01:00',
   phase: '',                 // пусто, по датам; или 'soon' | 'closed' | 'pause' | 'open' | 'ended'
   managerLink: 'https://t.me/rac_invest_support',
   preregLink: '/coldbf/',            // ссылка на сайт предзаписи (до 20.11 кнопки ведут туда)
@@ -1274,7 +1274,7 @@ var CONFIG = {
     var info = '<button class="link" type="button" data-act="info" data-id="' + o.id + '">Подробнее о программе</button>';
     if (phase === 'soon') return '<div class="buy"><button class="btn btn-red btn-block" type="button" data-act="prereg">Записаться в предзапись</button><div class="links">' + info + '</div></div>';
     if (phase === 'ended') return '<div class="buy"><button class="btn btn-line btn-block" type="button" data-act="ask">Написать менеджеру</button><div class="links">' + info + '</div></div>';
-    if (phase === 'pause') return '<div class="buy"><button class="btn btn-red btn-block" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + '</button><div class="links">' + info + '</div></div>';
+    if (phase === 'pause') return '<div class="buy"><button class="btn btn-red btn-block" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + ' в 12:00</button><div class="links">' + info + '</div></div>';
     return '<div class="buy"><button class="btn btn-red btn-block" type="button" data-act="pay" data-o="' + o.id + '">Купить за ' + fmt(now(o)) + '</button><div class="links">' + info + '</div></div>';
   }
   function lvl(o) {
@@ -1435,7 +1435,7 @@ var CONFIG = {
       '<span class="oldv m-old">Старая версия курса, без обновлений</span>' +
       '<div class="access">' + ICON_CAL + '<span>Доступ к урокам на ' + C.accessMonths + ' месяцев, открывается после полной оплаты.</span></div>' +
       o.items.map(function (i) { return courseBlock(P[i], o.items.length > 1); }).join('<hr class="m-hr">');
-    var act = phase === 'pause' ? '<button class="btn btn-red" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + '</button>'
+    var act = phase === 'pause' ? '<button class="btn btn-red" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + ' в 12:00</button>'
       : phase === 'soon' ? '<button class="btn btn-red" type="button" data-act="prereg">Записаться в предзапись</button>'
       : phase === 'ended' ? '<button class="btn btn-line" type="button" data-act="ask">Написать менеджеру</button>'
       : '<button class="btn btn-red" type="button" data-act="pay" data-o="' + o.id + '">Купить за ' + fmt(now(o)) + '</button>';
@@ -1703,11 +1703,11 @@ var CONFIG = {
     } else if (phase === 'pause') {
       txt.innerHTML = '<span>Секретный рейс улетел. Черная пятница, ' + ddmm(C.openStart) + '</span>';
       $('[data-timer-label]').textContent = 'До Черной пятницы'; timerTarget = T.open;
-      $('[data-final-text]').textContent = 'Следующая продажа, ' + ddmm(C.openStart) + ', в Черную пятницу. Только сутки.';
+      $('[data-final-text]').textContent = 'Следующая продажа, ' + ddmm(C.openStart) + ' в 12:00, в Черную пятницу. Только 24 часа.';
     } else if (phase === 'open') {
-      txt.innerHTML = '<span>Черная пятница: ликвидация старой версии курсов, только сегодня, до 23:59</span>';
+      txt.innerHTML = '<span>Черная пятница: ликвидация старой версии курсов, только 24 часа, до 12:00 28 ноября</span>';
       $('[data-timer-label]').textContent = 'Ликвидация закончится через'; timerTarget = T.end;
-      $('[data-final-text]').textContent = 'Цена ликвидации действует только сегодня, до 23:59.';
+      $('[data-final-text]').textContent = 'Цена ликвидации действует только 24 часа, до 12:00 28 ноября.';
     } else {
       txt.innerHTML = '<span>Ликвидация закончилась</span><button class="link" type="button" data-act="ask">Написать менеджеру</button>';
       $('[data-final-text]').textContent = 'Ликвидация закончилась. Напиши менеджеру, расскажем, когда стартует следующий поток.';
