@@ -126,9 +126,17 @@ fbq('track', 'PageView');
       full:  { ri: ['dMFmAp31EEy9V8XV', 'UuI0rWcl0tDhU5oI'], pro: ['SfiECUHzbTao2kwA', '2zedAw97jMWJFBRh'], duo: ['53I8GiPxhz8Rxtxq', 'nMD2q78T48ZORGeS'] },
       split: { ri: ['AfriaE05wFcXPeAO', '0QyStCk6vlTcQXzS'], pro: ['L9IndOpXfQULuaEG', 'xlHuZx0l1hSu39RF'], duo: ['5slmBNzuQUfGlUFp', '2Pc5a9XdacJ5Wjcy'] },
       book:  { ri: ['0W54qV4TP6rw9Bw8', 'EFRAl4xVbI4ZpNB7'], pro: ['dOvq6PpzOIsIXpEG', 'C3fkSBXpxt6O6xaD'], duo: ['rmYvv1GJlIwhqFfH', 'nF77EeCSwrrokmJQ'] }
+    },
+    // Черная пятница 27.11 (ссылки Stripe с t=27): свои цены и свои ссылки воронок с меткой BF26_27
+    price27: { ri: null, pro: null, duo: null },   // ЦЕНЫ 27.11: вписать, когда утвердят
+    funnel27: {
+      full:  { ri: ['sTScZSnyzPgi4ruz', 'lW6BVCi9guzCdFcC'], pro: ['rw8i4qiSjX5ZFq5d', 'iZz7CHClQMElaF0y'], duo: ['68mVZ5np5EVeGz5d', 'pGwOq6O6FKhja2W8'] },
+      split: { ri: ['E3APS7gCyekAPeg7', 'ZLXq3fH6AxmfTmp1'], pro: ['jmkrkw5eNeWsR2vG', 'eT4no15NtyjMi2zv'], duo: ['bFQFbhS920rwXRe6', 'RZ7VdQMRFaQVfQEf'] },
+      book:  { ri: ['GZMPVcwkVqmcsui7', 'EhjJYi1PZFEFXn46'], pro: ['JylqdSz7GsZMraYa', 'RPPSQKDIECBtW1zO'], duo: ['iRcZln13WwLz96Ei', 'kF7CeEQUESzTIWgW'] }
     }
   };
-  var q = new URLSearchParams(location.search), o = q.get('o'), m = q.get('m') || 'full', b = q.get('b') === '1';
+  var q = new URLSearchParams(location.search), o = q.get('o'), m = q.get('m') || 'full', b = q.get('b') === '1', t27 = q.get('t') === '27';
+  if (t27) { CONF.price = CONF.price27; CONF.funnel = CONF.funnel27; }
   if (['full', 'split', 'book', 'split2', 'bookrest'].indexOf(m) < 0) m = 'full';
   function $(s) { return document.querySelector(s); }
   function fmt(n) { return (Math.round(n * 100) / 100).toString().replace('.', ',') + '€'; }
@@ -161,7 +169,7 @@ fbq('track', 'PageView');
   if (b) { var B = $('[data-bonus]'); B.innerHTML = 'Бонус <b>«Лизинг»</b>: 2 урока, подробно про лизинг в Европе. Доступ к нему уже открыт в боте.'; B.hidden = false; }
 
   // Purchase: браузер + сервер (CAPI) с одним event_id; при обновлении страницы не повторяем
-  var key = 'liq_pur_' + o + m + (b ? 1 : 0);
+  var key = 'liq_pur_' + (t27 ? '27' : '') + o + m + (b ? 1 : 0);
   try { if (localStorage.getItem(key) && Date.now() - +localStorage.getItem(key) < 6 * 3600e3) return; localStorage.setItem(key, Date.now()); } catch (e) {}
   function cookie(n) { var mm = document.cookie.match('(^|;)\\s*' + n + '\\s*=\\s*([^;]+)'); return mm ? mm[2] : null; }
   var eventId = 'pur_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
@@ -172,7 +180,7 @@ fbq('track', 'PageView');
   } catch (e) {}
   window.__ccOnGrant(function () {
     fetch('/.netlify/functions/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product: 'liq', o: o, m: m, b: b ? 1 : 0, event_id: eventId, url: location.href, fbp: cookie('_fbp'), fbc: cookie('_fbc') }) }).catch(function () {});
+      body: JSON.stringify({ product: 'liq', o: o, m: m, b: b ? 1 : 0, t: t27 ? 27 : 0, event_id: eventId, url: location.href, fbp: cookie('_fbp'), fbc: cookie('_fbc') }) }).catch(function () {});
   });
 })();
 </script>

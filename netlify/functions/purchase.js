@@ -15,17 +15,20 @@ const PRODUCTS = {
 // Черная пятница 2026, ликвидация курсов: сумма считается здесь по курсу (o), способу оплаты (m) и подарку (b)
 const LIQ = {
   price: { ri: 150, pro: 150, duo: 200 },
+  price27: { ri: null, pro: null, duo: null },   // Черная пятница 27.11 (t=27): вписать, когда утвердят
   name:  { ri: 'Racionalnyj investor', pro: 'PRO Akcii', duo: 'RI + PRO Akcii' },
   book: 10,
   bonus: 10,
 };
 function liqProduct(body) {
-  const o = Object.prototype.hasOwnProperty.call(LIQ.price, body.o) ? body.o : null;
+  const t27 = body.t === 27 || body.t === '27';
+  const P = t27 ? LIQ.price27 : LIQ.price;
+  const o = Object.prototype.hasOwnProperty.call(P, body.o) && P[body.o] ? body.o : null;
   if (!o) return null;
   const m = ['full', 'split', 'book', 'split2', 'bookrest'].indexOf(body.m) >= 0 ? body.m : 'full';
   const b = body.b === 1 || body.b === '1' || body.b === true;
-  const paid = m === 'full' ? LIQ.price[o] : (m === 'split' || m === 'split2') ? LIQ.price[o] / 2 : m === 'bookrest' ? LIQ.price[o] - LIQ.book : LIQ.book;
-  return { value: paid + (b ? LIQ.bonus : 0), currency: 'EUR', content_name: 'BF26 Likvidaciya ' + LIQ.name[o] + ' (' + m + (b ? ', +Lizing' : '') + ')' };
+  const paid = m === 'full' ? P[o] : (m === 'split' || m === 'split2') ? P[o] / 2 : m === 'bookrest' ? P[o] - LIQ.book : LIQ.book;
+  return { value: paid + (b ? LIQ.bonus : 0), currency: 'EUR', content_name: 'BF26 Likvidaciya' + (t27 ? ' 27.11 ' : ' ') + LIQ.name[o] + ' (' + m + (b ? ', +Lizing' : '') + ')' };
 }
 
 const crypto = require('crypto');
