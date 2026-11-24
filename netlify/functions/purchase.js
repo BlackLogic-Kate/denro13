@@ -15,7 +15,7 @@ const PRODUCTS = {
 // Черная пятница 2026, ликвидация курсов: сумма считается здесь по курсу (o), способу оплаты (m) и подарку (b)
 const LIQ = {
   price: { ri: 150, pro: 150, duo: 200 },
-  price27: { ri: null, pro: null, duo: null },   // Черная пятница 27.11 (t=27): вписать, когда утвердят
+  price27: { ri: 199, pro: 199, duo: 222 },     // Черная пятница 27.11 (t=27)
   name:  { ri: 'Racionalnyj investor', pro: 'PRO Akcii', duo: 'RI + PRO Akcii' },
   book: 10,
   bonus: 10,

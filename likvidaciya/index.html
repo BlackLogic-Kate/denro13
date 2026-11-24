@@ -1108,6 +1108,7 @@ var CONFIG = {
   bonus: { name: 'Лизинг', price: 10, about: '2 урока, подробно про лизинг в Европе' },
   // ОПЛАТА. Вариант Б: адрес функции Netlify, которая создает оплату Stripe (тогда ссылки ниже не нужны).
   checkoutUrl: '',
+  showPricesInPause: false, // true: до 27.11 на карточках видна цена 27.11
   review: false,             // плашки «УТОЧНИТЬ»: показать можно ссылкой ?review=1
   // Вариант А: готовые ссылки Stripe. Ключи: full, split, book и те же с _bonus (курс + бонус)
   // tier: list, 20.11 для листа ожидания, all, 27.11 для всех
@@ -1118,9 +1119,9 @@ var CONFIG = {
       fit: 'хочешь начать инвестировать, но не знаешь, с чего',
       inside: ['Открываешь счет у брокера и делаешь первые сделки', 'Разбираешься с налогами в Польше и Европе', 'Собираешь свой инвестиционный портфель'],
       regular: 649,
-      price: { list: 150, all: null },   // all: цена 27.11, на сайте до 27.11 не показывается
+      price: { list: 150, all: 199 },    // all: цена 27.11
       book:  { list: 10,  all: 10 },     // сумма брони
-      link:  { list: { full: 'https://buy.stripe.com/fZu9AU9NYgScg5e8Jo2gp1Y', split: 'https://buy.stripe.com/aFa5kE0do8lG2eof7M2gp24', book: 'https://buy.stripe.com/28EeVe6BMcBW5qAe3I2gp2a', full_bonus: 'https://buy.stripe.com/28EdRa6BMbxSaKU4t82gp1Z', split_bonus: 'https://buy.stripe.com/eVqaEYf8iatO3isf7M2gp25', book_bonus: 'https://buy.stripe.com/7sY00kbW645qbOY9Ns2gp2b' }, all: {} }
+      link:  { list: { full: 'https://buy.stripe.com/fZu9AU9NYgScg5e8Jo2gp1Y', split: 'https://buy.stripe.com/aFa5kE0do8lG2eof7M2gp24', book: 'https://buy.stripe.com/28EeVe6BMcBW5qAe3I2gp2a', full_bonus: 'https://buy.stripe.com/28EdRa6BMbxSaKU4t82gp1Z', split_bonus: 'https://buy.stripe.com/eVqaEYf8iatO3isf7M2gp25', book_bonus: 'https://buy.stripe.com/7sY00kbW645qbOY9Ns2gp2b' }, all: { full: 'https://buy.stripe.com/cNi14o3pA6dy9GQe3I2gp2y', split: 'https://buy.stripe.com/eVq6oIbW6gSc1ak2l02gp2A', book: 'https://buy.stripe.com/00w8wQ0do0Te9GQ1gW2gp2r', full_bonus: 'https://buy.stripe.com/9B63cw5xI7hCf1a3p42gp2z', split_bonus: 'https://buy.stripe.com/6oU5kE8JU1Xi9GQ8Jo2gp2B', book_bonus: 'https://buy.stripe.com/bJe6oIgcm6dycT29Ns2gp2s' } }
     },
     {
       id: 'pro', items: ['pro'], level: 3, levelName: 'Для тех, кто уже инвестирует', type: '1 курс',
@@ -1128,9 +1129,9 @@ var CONFIG = {
       fit: 'уже инвестируешь в ETF и хочешь перейти к осознанному выбору акций',
       inside: ['Понимаешь, когда выгоднее ETF, а когда отдельные акции', 'Учишься находить сильные компании', 'Оцениваешь бизнес через мультипликаторы и DCF'],
       regular: null,                     // обычная цена PRO: уточнить
-      price: { list: 150, all: null },
+      price: { list: 150, all: 199 },
       book:  { list: 10,  all: 10 },
-      link:  { list: { full: 'https://buy.stripe.com/7sYdRad0a6dycT25xc2gp20', split: 'https://buy.stripe.com/28EdRaf8ibxS2eo1gW2gp26', book: 'https://buy.stripe.com/9B67sM7FQ1Xi2eo8Jo2gp2c', full_bonus: 'https://buy.stripe.com/5kQ9AU6BM31m9GQ1gW2gp21', split_bonus: 'https://buy.stripe.com/14AcN67FQ9pK1akbVA2gp27', book_bonus: 'https://buy.stripe.com/aFa7sMf8icBW6uE9Ns2gp2d' }, all: {} }
+      link:  { list: { full: 'https://buy.stripe.com/7sYdRad0a6dycT25xc2gp20', split: 'https://buy.stripe.com/28EdRaf8ibxS2eo1gW2gp26', book: 'https://buy.stripe.com/9B67sM7FQ1Xi2eo8Jo2gp2c', full_bonus: 'https://buy.stripe.com/5kQ9AU6BM31m9GQ1gW2gp21', split_bonus: 'https://buy.stripe.com/14AcN67FQ9pK1akbVA2gp27', book_bonus: 'https://buy.stripe.com/aFa7sMf8icBW6uE9Ns2gp2d' }, all: { full: 'https://buy.stripe.com/aFaeVed0a31mbOYgbQ2gp2E', split: 'https://buy.stripe.com/cNi3cwe4egSc2eoaRw2gp2G', book: 'https://buy.stripe.com/4gMdRabW6eK43isf7M2gp2I', full_bonus: 'https://buy.stripe.com/14AcN66BMdG04mw5xc2gp2F', split_bonus: 'https://buy.stripe.com/bJe14o5xIdG01ak5xc2gp2H', book_bonus: 'https://buy.stripe.com/dRmfZi0dofO8aKUe3I2gp2J' } }
     },
     {
       id: 'duo', items: ['ri', 'pro'], level: 3, levelName: 'От новичка до опытного', type: '2 курса по порядку', best: true,
@@ -1138,9 +1139,9 @@ var CONFIG = {
       fit: 'хочешь со временем сам выбирать акции, а не только фонды',
       inside: ['Все из «Рационального инвестора»', 'Учишься находить сильные компании', 'Оцениваешь бизнес через мультипликаторы и DCF'],
       regular: 1348,
-      price: { list: 200, all: null },
+      price: { list: 200, all: 222 },
       book:  { list: 10,  all: 10 },
-      link:  { list: { full: 'https://buy.stripe.com/4gM8wQgcm31m9GQbVA2gp22', split: 'https://buy.stripe.com/dRmbJ25xIdG0g5e5xc2gp28', book: 'https://buy.stripe.com/dRm5kEe4e7hCf1a5xc2gp2e', full_bonus: 'https://buy.stripe.com/28E6oId0abxS06g9Ns2gp23', split_bonus: 'https://buy.stripe.com/5kQbJ2bW68lGaKU0cS2gp29', book_bonus: 'https://buy.stripe.com/fZu8wQ9NYcBWbOYaRw2gp2f' }, all: {} }
+      link:  { list: { full: 'https://buy.stripe.com/4gM8wQgcm31m9GQbVA2gp22', split: 'https://buy.stripe.com/dRmbJ25xIdG0g5e5xc2gp28', book: 'https://buy.stripe.com/dRm5kEe4e7hCf1a5xc2gp2e', full_bonus: 'https://buy.stripe.com/28E6oId0abxS06g9Ns2gp23', split_bonus: 'https://buy.stripe.com/5kQbJ2bW68lGaKU0cS2gp29', book_bonus: 'https://buy.stripe.com/fZu8wQ9NYcBWbOYaRw2gp2f' }, all: { full: 'https://buy.stripe.com/4gM3cwgcmatOcT2cZE2gp2M', split: 'https://buy.stripe.com/eVq4gA7FQeK49GQ3p42gp2O', book: 'https://buy.stripe.com/14AaEY3pAeK4f1ae3I2gp2Q', full_bonus: 'https://buy.stripe.com/aFacN62lw7hC3is5xc2gp2N', split_bonus: 'https://buy.stripe.com/5kQ28s9NYgSc06g7Fk2gp2P', book_bonus: 'https://buy.stripe.com/aFa8wQ7FQ8lGbOY4t82gp2R' } }
     }
   ],
   products: [
@@ -1190,7 +1191,7 @@ var CONFIG = {
   C.products.forEach(function (p) { P[p.id] = p; });
   C.offers.forEach(function (o) { O[o.id] = o; });
 
-  function fmt(n) { if (n == null) return 'цена?'; return Math.round(n).toLocaleString('ru-RU') + '€'; }
+  function fmt(n) { if (n == null) return 'цена?'; var r = Math.round(n * 100) / 100; return (r % 1 ? r.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : r.toLocaleString('ru-RU')) + '€'; }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -1293,7 +1294,7 @@ var CONFIG = {
     if (phase === 'soon' || phase === 'closed')
       return '<div class="tk-pr"><div><span class="lbl">' + (phase === 'closed' ? 'СЕЙЧАС' : ddmm(C.saleStart)) + '</span><span class="now">' + fmt(o.price.list) + '</span></div>' +
         '</div>' + reg + payHint(o);
-    return '<div class="tk-pr"><div><span class="lbl">' + (phase === 'pause' ? ddmm(C.openStart) : 'ЦЕНА') + '</span><span class="now">' + fmt(now(o)) + '</span></div></div>' + reg;
+    return '<div class="tk-pr"><div><span class="lbl">' + (phase === 'pause' ? ddmm(C.openStart) : 'ЦЕНА') + '</span><span class="now">' + (phase === 'pause' && !C.showPricesInPause ? 'скоро' : fmt(now(o))) + '</span></div></div>' + reg;
   }
   function note(t) { return C.review ? '<span class="rv-note"><b>УТОЧНИТЬ</b>' + t + '</span>' : ''; }
   function payHint(o) {
