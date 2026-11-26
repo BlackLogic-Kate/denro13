@@ -1758,7 +1758,16 @@ var CONFIG = {
     boardDone = true;
   }
   $$('.club [data-flap]').forEach(function (el) { flapFill(el, 0); });
+  // автообновление: если вкладка открыта на границе фаз (27.11 12:00, 28.11 12:00), страница перезагружается сама
+  var phaseLocked = !!C.phase;
+  try { if (/[?&]phase=/.test(location.search)) phaseLocked = true; } catch (e) {}
+  var reloadAt = 0;
+  function checkPhase() {
+    if (phaseLocked || reloadAt) return;
+    if (autoPhase() !== phase) { reloadAt = Date.now() + Math.floor(Math.random() * 1500); setTimeout(function () { location.reload(); }, reloadAt - Date.now()); }
+  }
   function tick() {
+    checkPhase();
     var nd = new Date(), ck = $('[data-clock]'); if (ck) ck.textContent = pad(nd.getHours()) + ':' + pad(nd.getMinutes());
     var ms = isNaN(timerTarget) ? 0 : Math.max(0, timerTarget - Date.now());
     var v = { d: Math.floor(ms / 86400000), h: Math.floor(ms / 3600000) % 24, m: Math.floor(ms / 60000) % 60, s: Math.floor(ms / 1000) % 60 };
