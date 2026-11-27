@@ -1274,7 +1274,7 @@ var CONFIG = {
   function buyBlock(o) {
     var info = '<button class="link" type="button" data-act="info" data-id="' + o.id + '">Подробнее о программе</button>';
     if (phase === 'soon') return '<div class="buy"><button class="btn btn-red btn-block" type="button" data-act="prereg">Записаться в предзапись</button><div class="links">' + info + '</div></div>';
-    if (phase === 'ended') return '<div class="buy"><button class="btn btn-line btn-block" type="button" data-act="ask">Написать менеджеру</button><div class="links">' + info + '</div></div>';
+    if (phase === 'ended') return '<div class="buy"><button class="btn btn-red btn-block" type="button" data-act="prereg">Записаться на Кибер-понедельник</button><div class="links">' + info + '</div></div>';
     if (phase === 'pause') return '<div class="buy"><button class="btn btn-red btn-block" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + ' в 12:00</button><div class="links">' + info + '</div></div>';
     return '<div class="buy"><button class="btn btn-red btn-block" type="button" data-act="pay" data-o="' + o.id + '">Купить за ' + fmt(now(o)) + '</button><div class="links">' + info + '</div></div>';
   }
@@ -1438,7 +1438,7 @@ var CONFIG = {
       o.items.map(function (i) { return courseBlock(P[i], o.items.length > 1); }).join('<hr class="m-hr">');
     var act = phase === 'pause' ? '<button class="btn btn-red" type="button" disabled>Продажа откроется ' + ddmm(C.openStart) + ' в 12:00</button>'
       : phase === 'soon' ? '<button class="btn btn-red" type="button" data-act="prereg">Записаться в предзапись</button>'
-      : phase === 'ended' ? '<button class="btn btn-line" type="button" data-act="ask">Написать менеджеру</button>'
+      : phase === 'ended' ? '<button class="btn btn-red" type="button" data-act="prereg">Записаться на Кибер-понедельник</button>'
       : '<button class="btn btn-red" type="button" data-act="pay" data-o="' + o.id + '">Купить за ' + fmt(now(o)) + '</button>';
     openModal(body, '<div class="price"><span class="now">' + fmt(now(o)) + '</span>' + (o.regular ? '<s>' + fmt(o.regular) + '</s>' : '') + '</div>' + act);
   }
@@ -1639,7 +1639,7 @@ var CONFIG = {
   };
   function openDoc(k) { if (DOCS[k]) openModal(DOCS[k](), '', true); }
   function ask() { if (C.managerLink) window.open(C.managerLink, '_blank', 'noopener'); }
-  function prereg() { if (C.preregLink) window.location.href = C.preregLink; else toast('Ссылка на предзапись пока не подключена'); }
+  function prereg() { if (C.preregLink) window.location.href = C.preregLink + (phase === 'ended' && !/[?&]utm_source=/.test(location.search) ? (location.search ? location.search + '&' : '?') + 'utm_source=likvidaciya' : location.search); else toast('Ссылка на предзапись пока не подключена'); }
 
   /* --- one click handler --- */
   document.addEventListener('click', function (e) {
@@ -1678,8 +1678,8 @@ var CONFIG = {
     var showTimer = phase !== 'ended';
     $$('[data-timer]').forEach(function (t) { t.hidden = !showTimer; });
     $('[data-tline]').hidden = !showTimer;
-    var ctaText = phase === 'soon' ? 'Записаться в предзапись' : phase === 'ended' || phase === 'pause' ? 'Смотреть курсы' : 'Выбрать курс';
-    $$('[data-cta]').forEach(function (b) { b.textContent = ctaText; b.setAttribute('data-act', phase === 'soon' ? 'prereg' : 'herocta'); });
+    var ctaText = phase === 'soon' ? 'Записаться в предзапись' : phase === 'ended' ? 'Записаться на Кибер-понедельник' : phase === 'pause' ? 'Смотреть курсы' : 'Выбрать курс';
+    $$('[data-cta]').forEach(function (b) { b.textContent = ctaText; b.setAttribute('data-act', phase === 'soon' || phase === 'ended' ? 'prereg' : 'herocta'); });
     var H1 = $('[data-h1]'), SUB = $('[data-sub]'), BT = $('[data-bb-t]'), BP = $('[data-bb-p]');
     var ri = O.ri, duo = O.duo, lo = fmt(ri.price.list) + ' и ' + fmt(duo.price.list), hi = fmt(ri.price.all) + ' и ' + fmt(duo.price.all);
     if (phase === 'soon' || phase === 'closed') {
@@ -1710,12 +1710,12 @@ var CONFIG = {
       $('[data-timer-label]').textContent = 'Ликвидация закончится через'; timerTarget = T.end;
       $('[data-final-text]').textContent = 'Цена ликвидации действует только 24 часа, до 12:00 28 ноября.';
     } else {
-      txt.innerHTML = '<span>Ликвидация закончилась</span><button class="link" type="button" data-act="ask">Написать менеджеру</button>';
-      $('[data-final-text]').textContent = 'Ликвидация закончилась. Напиши менеджеру, расскажем, когда стартует следующий поток.';
+      txt.innerHTML = '<span>Ликвидация закончилась. 30 ноября в 12:00 Кибер-понедельник, только 24 часа</span><button class="link" type="button" data-act="prereg">Записаться</button>';
+      $('[data-final-text]').textContent = 'Ликвидация закончилась. 30 ноября в 12:00 откроется распродажа Кибер-понедельника, только на 24 часа. Запишись в лист ожидания, и ссылка придет в Telegram.';
     }
-    $('.hdr-cta').setAttribute('data-act', phase === 'ended' ? 'ask' : phase === 'soon' ? 'prereg' : 'hdrcta');
-    $('[data-hdr-wide]').textContent = phase === 'ended' ? 'Написать менеджеру' : phase === 'soon' ? 'Записаться в предзапись' : phase === 'pause' ? 'Смотреть курсы' : 'Выбрать курс';
-    $('[data-hdr-narrow]').textContent = phase === 'ended' ? 'Вопрос' : phase === 'soon' ? 'Предзапись' : 'Выбрать курс';
+    $('.hdr-cta').setAttribute('data-act', phase === 'ended' ? 'prereg' : phase === 'soon' ? 'prereg' : 'hdrcta');
+    $('[data-hdr-wide]').textContent = phase === 'ended' ? 'Записаться на Кибер-понедельник' : phase === 'soon' ? 'Записаться в предзапись' : phase === 'pause' ? 'Смотреть курсы' : 'Выбрать курс';
+    $('[data-hdr-narrow]').textContent = phase === 'ended' ? 'Записаться' : phase === 'soon' ? 'Предзапись' : 'Выбрать курс';
     renderBoard(); renderProds(); tick(); setHdr();
   }
   window.__setPhase = function (p) { if (/^(soon|closed|pause|open|ended)$/.test(p)) { phase = p; applyPhase(); } };
